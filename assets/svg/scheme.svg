@@ -1,0 +1,264 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css"
+     height="597px" preserveAspectRatio="none" style="width:996px;height:597px;background:#FFFFFF;" version="1.1"
+     viewBox="0 0 996 597" width="996px" zoomAndPan="magnify">
+    <defs/>
+    <g><!--class scheme-->
+        <g id="elem_scheme">
+            <rect codeLine="25" fill="#FFFFFF" height="143.7188" id="scheme" rx="2.5" ry="2.5"
+                  style="stroke:#2E8B57;stroke-width:0.5;" width="372.3333" x="7" y="447"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="62" x="162.1667" y="464.9951">Scheme
+            </text>
+            <text fill="#808080" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="51"
+                  x="167.6667" y="477.5791">(scheme)
+            </text>
+            <line style="stroke:#2E8B57;stroke-width:0.5;" x1="8" x2="378.3333" y1="484.9375" y2="484.9375"/>
+            <path d="M20.4167,492.401 C18.8067,492.401 17.5,493.7077 17.5,495.3177 C17.5,495.5044 17.5,495.691 17.535,495.866 L14,499.401 L14,501.7344 L17.5,501.7344 L17.5,499.401 L19.8333,499.401 L19.8333,498.2344 L19.8683,498.1994 C20.0433,498.2344 20.23,498.2344 20.4167,498.2344 C22.0267,498.2344 23.3333,496.9277 23.3333,495.3177 C23.3333,493.7077 22.0267,492.401 20.4167,492.401 M21,493.5677 C21.6417,493.5677 22.1667,494.0927 22.1667,494.7344 C22.1667,495.376 21.6417,495.901 21,495.901 C20.3583,495.901 19.8333,495.376 19.8333,494.7344 C19.8333,494.0927 20.3583,493.5677 21,493.5677 "
+                  fill="#B8860B" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="15" x="29.3333" y="501.9326">id
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="42"
+                  x="44.3333" y="501.9326">: UUID
+            </text>
+            <path d="M17.5,508.6979 C15.5633,508.6979 14,510.2613 14,512.1979 C14,514.1346 15.5633,515.6979 17.5,515.6979 C19.4367,515.6979 21,514.1346 21,512.1979 C21,510.2613 19.4367,508.6979 17.5,508.6979 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="241"
+                  x="28.3333" y="518.2295">name: CHARACTER VARYING(255)
+            </text>
+            <path d="M17.5,524.9948 C15.5633,524.9948 14,526.5581 14,528.4948 C14,530.4315 15.5633,531.9948 17.5,531.9948 C19.4367,531.9948 21,530.4315 21,528.4948 C21,526.5581 19.4367,524.9948 17.5,524.9948 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="128"
+                  x="28.3333" y="534.5264">description: TEXT
+            </text>
+            <path d="M17.5,541.2917 C15.5633,541.2917 14,542.855 14,544.7917 C14,546.7283 15.5633,548.2917 17.5,548.2917 C19.4367,548.2917 21,546.7283 21,544.7917 C21,542.855 19.4367,541.2917 17.5,541.2917 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="341"
+                  x="28.3333" y="550.8232">created_at: TIMESTAMP WITHOUT TIME ZONE(6)
+            </text>
+            <path d="M17.5,557.5885 C15.5633,557.5885 14,559.1519 14,561.0885 C14,563.0252 15.5633,564.5885 17.5,564.5885 C19.4367,564.5885 21,563.0252 21,561.0885 C21,559.1519 19.4367,557.5885 17.5,557.5885 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="345"
+                  x="28.3333" y="567.1201">updated_at: TIMESTAMP WITHOUT TIME ZONE(6)
+            </text>
+            <path d="M20.4167,573.8854 C18.8067,573.8854 17.5,575.1921 17.5,576.8021 C17.5,576.9888 17.5,577.1754 17.535,577.3504 L14,580.8854 L14,583.2188 L17.5,583.2188 L17.5,580.8854 L19.8333,580.8854 L19.8333,579.7188 L19.8683,579.6837 C20.0433,579.7188 20.23,579.7188 20.4167,579.7188 C22.0267,579.7188 23.3333,578.4121 23.3333,576.8021 C23.3333,575.1921 22.0267,573.8854 20.4167,573.8854 M21,575.0521 C21.6417,575.0521 22.1667,575.5771 22.1667,576.2188 C22.1667,576.8604 21.6417,577.3854 21,577.3854 C20.3583,577.3854 19.8333,576.8604 19.8333,576.2188 C19.8333,575.5771 20.3583,575.0521 21,575.0521 "
+                  fill="#AAAAAA" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="153"
+                  x="28.3333" y="583.417">project_id: UUID «FK»
+            </text>
+        </g><!--class project-->
+        <g id="elem_project">
+            <rect codeLine="34" fill="#FFFFFF" height="143.7188" id="project" rx="2.5" ry="2.5"
+                  style="stroke:#2E8B57;stroke-width:0.5;" width="372.3333" x="7" y="243"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="58" x="164.1667" y="260.9951">Project
+            </text>
+            <text fill="#808080" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="46"
+                  x="170.1667" y="273.5791">(project)
+            </text>
+            <line style="stroke:#2E8B57;stroke-width:0.5;" x1="8" x2="378.3333" y1="280.9375" y2="280.9375"/>
+            <path d="M20.4167,288.401 C18.8067,288.401 17.5,289.7077 17.5,291.3177 C17.5,291.5044 17.5,291.691 17.535,291.866 L14,295.401 L14,297.7344 L17.5,297.7344 L17.5,295.401 L19.8333,295.401 L19.8333,294.2344 L19.8683,294.1994 C20.0433,294.2344 20.23,294.2344 20.4167,294.2344 C22.0267,294.2344 23.3333,292.9277 23.3333,291.3177 C23.3333,289.7077 22.0267,288.401 20.4167,288.401 M21,289.5677 C21.6417,289.5677 22.1667,290.0927 22.1667,290.7344 C22.1667,291.376 21.6417,291.901 21,291.901 C20.3583,291.901 19.8333,291.376 19.8333,290.7344 C19.8333,290.0927 20.3583,289.5677 21,289.5677 "
+                  fill="#B8860B" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="15" x="29.3333" y="297.9326">id
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="42"
+                  x="44.3333" y="297.9326">: UUID
+            </text>
+            <path d="M17.5,304.6979 C15.5633,304.6979 14,306.2613 14,308.1979 C14,310.1346 15.5633,311.6979 17.5,311.6979 C19.4367,311.6979 21,310.1346 21,308.1979 C21,306.2613 19.4367,304.6979 17.5,304.6979 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="241"
+                  x="28.3333" y="314.2295">name: CHARACTER VARYING(255)
+            </text>
+            <path d="M17.5,320.9948 C15.5633,320.9948 14,322.5581 14,324.4948 C14,326.4315 15.5633,327.9948 17.5,327.9948 C19.4367,327.9948 21,326.4315 21,324.4948 C21,322.5581 19.4367,320.9948 17.5,320.9948 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="128"
+                  x="28.3333" y="330.5264">description: TEXT
+            </text>
+            <path d="M17.5,337.2917 C15.5633,337.2917 14,338.855 14,340.7917 C14,342.7283 15.5633,344.2917 17.5,344.2917 C19.4367,344.2917 21,342.7283 21,340.7917 C21,338.855 19.4367,337.2917 17.5,337.2917 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="341"
+                  x="28.3333" y="346.8232">created_at: TIMESTAMP WITHOUT TIME ZONE(6)
+            </text>
+            <path d="M17.5,353.5885 C15.5633,353.5885 14,355.1519 14,357.0885 C14,359.0252 15.5633,360.5885 17.5,360.5885 C19.4367,360.5885 21,359.0252 21,357.0885 C21,355.1519 19.4367,353.5885 17.5,353.5885 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="345"
+                  x="28.3333" y="363.1201">updated_at: TIMESTAMP WITHOUT TIME ZONE(6)
+            </text>
+            <path d="M20.4167,369.8854 C18.8067,369.8854 17.5,371.1921 17.5,372.8021 C17.5,372.9888 17.5,373.1754 17.535,373.3504 L14,376.8854 L14,379.2188 L17.5,379.2188 L17.5,376.8854 L19.8333,376.8854 L19.8333,375.7188 L19.8683,375.6838 C20.0433,375.7188 20.23,375.7188 20.4167,375.7188 C22.0267,375.7188 23.3333,374.4121 23.3333,372.8021 C23.3333,371.1921 22.0267,369.8854 20.4167,369.8854 M21,371.0521 C21.6417,371.0521 22.1667,371.5771 22.1667,372.2188 C22.1667,372.8604 21.6417,373.3854 21,373.3854 C20.3583,373.3854 19.8333,372.8604 19.8333,372.2188 C19.8333,371.5771 20.3583,371.0521 21,371.0521 "
+                  fill="#AAAAAA" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="130"
+                  x="28.3333" y="379.417">user_id: UUID «FK»
+            </text>
+        </g><!--class user-->
+        <g id="elem_user">
+            <rect codeLine="43" fill="#FFFFFF" height="143.7188" id="user" rx="2.5" ry="2.5"
+                  style="stroke:#2E8B57;stroke-width:0.5;" width="372.3333" x="210" y="23"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="36" x="378.1667" y="40.9951">User
+            </text>
+            <text fill="#808080" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="31"
+                  x="380.6667" y="53.5791">(user)
+            </text>
+            <line style="stroke:#2E8B57;stroke-width:0.5;" x1="211" x2="581.3333" y1="60.9375" y2="60.9375"/>
+            <path d="M223.4167,68.401 C221.8067,68.401 220.5,69.7077 220.5,71.3177 C220.5,71.5044 220.5,71.691 220.535,71.866 L217,75.401 L217,77.7344 L220.5,77.7344 L220.5,75.401 L222.8333,75.401 L222.8333,74.2344 L222.8683,74.1994 C223.0433,74.2344 223.23,74.2344 223.4167,74.2344 C225.0267,74.2344 226.3333,72.9277 226.3333,71.3177 C226.3333,69.7077 225.0267,68.401 223.4167,68.401 M224,69.5677 C224.6417,69.5677 225.1667,70.0927 225.1667,70.7344 C225.1667,71.376 224.6417,71.901 224,71.901 C223.3583,71.901 222.8333,71.376 222.8333,70.7344 C222.8333,70.0927 223.3583,69.5677 224,69.5677 "
+                  fill="#B8860B" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="15" x="232.3333" y="77.9326">id
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="42"
+                  x="247.3333" y="77.9326">: UUID
+            </text>
+            <path d="M220.5,84.6979 C218.5633,84.6979 217,86.2612 217,88.1979 C217,90.1346 218.5633,91.6979 220.5,91.6979 C222.4367,91.6979 224,90.1346 224,88.1979 C224,86.2612 222.4367,84.6979 220.5,84.6979 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="278"
+                  x="231.3333" y="94.2295">first_name: CHARACTER VARYING(255)
+            </text>
+            <path d="M220.5,100.9948 C218.5633,100.9948 217,102.5581 217,104.4948 C217,106.4315 218.5633,107.9948 220.5,107.9948 C222.4367,107.9948 224,106.4315 224,104.4948 C224,102.5581 222.4367,100.9948 220.5,100.9948 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="274"
+                  x="231.3333" y="110.5264">last_name: CHARACTER VARYING(255)
+            </text>
+            <path d="M220.5,117.2917 C218.5633,117.2917 217,118.855 217,120.7917 C217,122.7283 218.5633,124.2917 220.5,124.2917 C222.4367,124.2917 224,122.7283 224,120.7917 C224,118.855 222.4367,117.2917 220.5,117.2917 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="240"
+                  x="231.3333" y="126.8232">email: CHARACTER VARYING(255)
+            </text>
+            <path d="M220.5,133.5885 C218.5633,133.5885 217,135.1519 217,137.0885 C217,139.0252 218.5633,140.5885 220.5,140.5885 C222.4367,140.5885 224,139.0252 224,137.0885 C224,135.1519 222.4367,133.5885 220.5,133.5885 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="341"
+                  x="231.3333" y="143.1201">created_at: TIMESTAMP WITHOUT TIME ZONE(6)
+            </text>
+            <path d="M220.5,149.8854 C218.5633,149.8854 217,151.4488 217,153.3854 C217,155.3221 218.5633,156.8854 220.5,156.8854 C222.4367,156.8854 224,155.3221 224,153.3854 C224,151.4488 222.4367,149.8854 220.5,149.8854 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="345"
+                  x="231.3333" y="159.417">updated_at: TIMESTAMP WITHOUT TIME ZONE(6)
+            </text>
+        </g><!--class password-->
+        <g id="elem_password">
+            <rect codeLine="52" fill="#FFFFFF" height="127.4219" id="password" rx="2.5" ry="2.5"
+                  style="stroke:#2E8B57;stroke-width:0.5;" width="372.3333" x="414" y="251.5"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="78" x="561.1667" y="269.4951">Password
+            </text>
+            <text fill="#808080" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="58"
+                  x="571.1667" y="282.0791">(password)
+            </text>
+            <line style="stroke:#2E8B57;stroke-width:0.5;" x1="415" x2="785.3333" y1="289.4375" y2="289.4375"/>
+            <path d="M427.4167,296.901 C425.8067,296.901 424.5,298.2077 424.5,299.8177 C424.5,300.0044 424.5,300.191 424.535,300.366 L421,303.901 L421,306.2344 L424.5,306.2344 L424.5,303.901 L426.8333,303.901 L426.8333,302.7344 L426.8683,302.6994 C427.0433,302.7344 427.23,302.7344 427.4167,302.7344 C429.0267,302.7344 430.3333,301.4277 430.3333,299.8177 C430.3333,298.2077 429.0267,296.901 427.4167,296.901 M428,298.0677 C428.6417,298.0677 429.1667,298.5927 429.1667,299.2344 C429.1667,299.876 428.6417,300.401 428,300.401 C427.3583,300.401 426.8333,299.876 426.8333,299.2344 C426.8333,298.5927 427.3583,298.0677 428,298.0677 "
+                  fill="#B8860B" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="15" x="436.3333" y="306.4326">id
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="42"
+                  x="451.3333" y="306.4326">: UUID
+            </text>
+            <path d="M424.5,313.1979 C422.5633,313.1979 421,314.7613 421,316.6979 C421,318.6346 422.5633,320.1979 424.5,320.1979 C426.4367,320.1979 428,318.6346 428,316.6979 C428,314.7613 426.4367,313.1979 424.5,313.1979 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="234"
+                  x="435.3333" y="322.7295">hash: CHARACTER VARYING(255)
+            </text>
+            <path d="M424.5,329.4948 C422.5633,329.4948 421,331.0581 421,332.9948 C421,334.9315 422.5633,336.4948 424.5,336.4948 C426.4367,336.4948 428,334.9315 428,332.9948 C428,331.0581 426.4367,329.4948 424.5,329.4948 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="341"
+                  x="435.3333" y="339.0264">created_at: TIMESTAMP WITHOUT TIME ZONE(6)
+            </text>
+            <path d="M424.5,345.7917 C422.5633,345.7917 421,347.355 421,349.2917 C421,351.2283 422.5633,352.7917 424.5,352.7917 C426.4367,352.7917 428,351.2283 428,349.2917 C428,347.355 426.4367,345.7917 424.5,345.7917 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="345"
+                  x="435.3333" y="355.3232">updated_at: TIMESTAMP WITHOUT TIME ZONE(6)
+            </text>
+            <path d="M427.4167,362.0885 C425.8067,362.0885 424.5,363.3952 424.5,365.0052 C424.5,365.1919 424.5,365.3785 424.535,365.5535 L421,369.0885 L421,371.4219 L424.5,371.4219 L424.5,369.0885 L426.8333,369.0885 L426.8333,367.9219 L426.8683,367.8869 C427.0433,367.9219 427.23,367.9219 427.4167,367.9219 C429.0267,367.9219 430.3333,366.6152 430.3333,365.0052 C430.3333,363.3952 429.0267,362.0885 427.4167,362.0885 M428,363.2552 C428.6417,363.2552 429.1667,363.7802 429.1667,364.4219 C429.1667,365.0635 428.6417,365.5885 428,365.5885 C427.3583,365.5885 426.8333,365.0635 426.8333,364.4219 C426.8333,363.7802 427.3583,363.2552 428,363.2552 "
+                  fill="#AAAAAA" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="130"
+                  x="435.3333" y="371.6201">user_id: UUID «FK»
+            </text>
+        </g><!--class subject-->
+        <g id="elem_subject">
+            <rect codeLine="60" fill="#FFFFFF" height="176.3125" id="subject" rx="2.5" ry="2.5"
+                  style="stroke:#2E8B57;stroke-width:0.5;" width="372.3333" x="617" y="7"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="61" x="772.6667" y="24.9951">Subject
+            </text>
+            <text fill="#808080" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="47"
+                  x="779.6667" y="37.5791">(subject)
+            </text>
+            <line style="stroke:#2E8B57;stroke-width:0.5;" x1="618" x2="988.3333" y1="44.9375" y2="44.9375"/>
+            <path d="M630.4167,52.401 C628.8067,52.401 627.5,53.7077 627.5,55.3177 C627.5,55.5044 627.5,55.691 627.535,55.866 L624,59.401 L624,61.7344 L627.5,61.7344 L627.5,59.401 L629.8333,59.401 L629.8333,58.2344 L629.8683,58.1994 C630.0433,58.2344 630.23,58.2344 630.4167,58.2344 C632.0267,58.2344 633.3333,56.9277 633.3333,55.3177 C633.3333,53.7077 632.0267,52.401 630.4167,52.401 M631,53.5677 C631.6417,53.5677 632.1667,54.0927 632.1667,54.7344 C632.1667,55.376 631.6417,55.901 631,55.901 C630.3583,55.901 629.8333,55.376 629.8333,54.7344 C629.8333,54.0927 630.3583,53.5677 631,53.5677 "
+                  fill="#B8860B" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="15" x="639.3333" y="61.9326">id
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="42"
+                  x="654.3333" y="61.9326">: UUID
+            </text>
+            <path d="M627.5,68.6979 C625.5633,68.6979 624,70.2612 624,72.1979 C624,74.1346 625.5633,75.6979 627.5,75.6979 C629.4367,75.6979 631,74.1346 631,72.1979 C631,70.2612 629.4367,68.6979 627.5,68.6979 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="241"
+                  x="638.3333" y="78.2295">name: CHARACTER VARYING(255)
+            </text>
+            <path d="M627.5,84.9948 C625.5633,84.9948 624,86.5581 624,88.4948 C624,90.4315 625.5633,91.9948 627.5,91.9948 C629.4367,91.9948 631,90.4315 631,88.4948 C631,86.5581 629.4367,84.9948 627.5,84.9948 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="128"
+                  x="638.3333" y="94.5264">description: TEXT
+            </text>
+            <path d="M627.5,101.2917 C625.5633,101.2917 624,102.855 624,104.7917 C624,106.7283 625.5633,108.2917 627.5,108.2917 C629.4367,108.2917 631,106.7283 631,104.7917 C631,102.855 629.4367,101.2917 627.5,101.2917 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="133"
+                  x="638.3333" y="110.8232">start_point: POINT
+            </text>
+            <path d="M627.5,117.5885 C625.5633,117.5885 624,119.1519 624,121.0885 C624,123.0252 625.5633,124.5885 627.5,124.5885 C629.4367,124.5885 631,123.0252 631,121.0885 C631,119.1519 629.4367,117.5885 627.5,117.5885 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111"
+                  x="638.3333" y="127.1201">width: INTEGER
+            </text>
+            <path d="M627.5,133.8854 C625.5633,133.8854 624,135.4488 624,137.3854 C624,139.3221 625.5633,140.8854 627.5,140.8854 C629.4367,140.8854 631,139.3221 631,137.3854 C631,135.4488 629.4367,133.8854 627.5,133.8854 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="118"
+                  x="638.3333" y="143.417">height: INTEGER
+            </text>
+            <path d="M627.5,150.1823 C625.5633,150.1823 624,151.7456 624,153.6823 C624,155.619 625.5633,157.1823 627.5,157.1823 C629.4367,157.1823 631,155.619 631,153.6823 C631,151.7456 629.4367,150.1823 627.5,150.1823 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="341"
+                  x="638.3333" y="159.7139">created_at: TIMESTAMP WITHOUT TIME ZONE(6)
+            </text>
+            <path d="M627.5,166.4792 C625.5633,166.4792 624,168.0425 624,169.9792 C624,171.9158 625.5633,173.4792 627.5,173.4792 C629.4367,173.4792 631,171.9158 631,169.9792 C631,168.0425 629.4367,166.4792 627.5,166.4792 "
+                  fill="#EFEFEF" style="stroke:;stroke-width:0.0;stroke-dasharray:;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="345"
+                  x="638.3333" y="176.0107">updated_at: TIMESTAMP WITHOUT TIME ZONE(6)
+            </text>
+        </g><!--link project to scheme-->
+        <g id="link_project_scheme">
+            <path codeLine="71" d="M193,395.21 C193,395.21 193,438.887 193,438.887 " fill="none" id="project-scheme"
+                  style="stroke:#2E8B57;stroke-width:1.0;"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="189" x2="197" y1="391.21" y2="391.21"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="189" x2="197" y1="394.21" y2="394.21"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="193" x2="193" y1="395.21" y2="387.21"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="193" x2="199" y1="438.887" y2="446.887"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="193" x2="187" y1="438.887" y2="446.887"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="193" x2="193" y1="438.887" y2="446.887"/>
+            <ellipse cx="193" cy="432.887" fill="none" rx="4" ry="4" style="stroke:#2E8B57;stroke-width:1.0;"/>
+        </g><!--link user to project-->
+        <g id="link_user_project">
+            <path codeLine="72" d="M294.5,175.036 C294.5,175.036 294.5,234.802 294.5,234.802 " fill="none"
+                  id="user-project" style="stroke:#2E8B57;stroke-width:1.0;"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="290.5" x2="298.5" y1="171.036" y2="171.036"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="290.5" x2="298.5" y1="174.036" y2="174.036"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="294.5" x2="294.5" y1="175.036" y2="167.036"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="294.5" x2="300.5" y1="234.802" y2="242.802"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="294.5" x2="288.5" y1="234.802" y2="242.802"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="294.5" x2="294.5" y1="234.802" y2="242.802"/>
+            <ellipse cx="294.5" cy="228.802" fill="none" rx="4" ry="4" style="stroke:#2E8B57;stroke-width:1.0;"/>
+        </g><!--link user to password-->
+        <g id="link_user_password">
+            <path codeLine="73" d="M498,174.036 C498,174.036 498,244.325 498,244.325 " fill="none" id="user-password"
+                  style="stroke:#2E8B57;stroke-width:1.0;"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="494" x2="502" y1="171.036" y2="171.036"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="494" x2="502" y1="174.036" y2="174.036"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="498" x2="498" y1="175.036" y2="167.036"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="502" x2="494" y1="247.325" y2="247.325"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="502" x2="494" y1="244.325" y2="244.325"/>
+            <line style="stroke:#2E8B57;stroke-width:1.0;" x1="498" x2="498" y1="243.325" y2="251.325"/>
+        </g><!--SRC=[tLHRRzem67tFh_YQIHD88BP9xA5A8p5AAPeAYCjkceHC_44y4ZkoZIY3_lVPJkZIxbBwWgOb3x7F-IxnyR7FA2uOHz1adc05EKcn1dHklrL0hfdUWX_CGyS4ZNdubGSBmJKezXqlNh-2I2H2NYmbsOQL8Yzes8ZGzxopedgsmctbjWgx1SE4te4f6BZ4yqiYLrsHKEGZGSFWfGaCWuRZGhYr3U-BB1uNoIkyQBddbzpxF0EiK_wxpCwLVKrcYfIHkiH8I5ekuSMC8YYD4eNUPgXo84KT2rfC8YQZ13rFYmoqWBdGMgH0cQcccU2UfrQCPqII5AHOSsfwS9JGBE69-KrR7eGqXKk4YWaL6yQNi229mX8J4qutaccDlE1AP9GGfM3dWNdUaMYrT8tRTbMmYPb6nxIa59iSL4YM4f7d6KO4b8-8Ey-iq7a4nb6CrYNAVQ4AH1t6jgNRQs0KgkSmdVOkmM355e2rXyNRrwrHgptfZE13Q_Ivr-zMtZIRrN8aHHL9bba5RSAaysbIfYE9H2ET4UtOtardF6dT3E5ZRt8zc4uS0by6_KxbxOEowum-Ayzv3Z8flfdTd9KM5GHNxyFGobAeCinZQeVWN9V3v3yLPgrG_bMLgGcekR1S3pTwIem5aqhFZfV4kFqvuPWIbXmNUXerIoOovtPZZfznKJ4gR7IOFILTJ5JyBotjQAECr_Fy-AXyK5mhnUHanqTf8lKi4uoxvGq7lVu3ViEeTW8RlDCrVShQ8rl6-W_aoPpa5rUE3_jzlIvsuETti-_vTXD-meUuChxV6xpmcly3]-->
+    </g>
+</svg>
