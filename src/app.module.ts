@@ -8,6 +8,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeormConfigService } from './shared/typeorm/typeorm.service';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 import { RequestLoggerMiddleware } from './common/middlewares/request-logger.middleware';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 const envPath = getEnvPath(`${__dirname}/common/envs`);
 
@@ -18,10 +20,20 @@ const envPath = getEnvPath(`${__dirname}/common/envs`);
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({ useClass: TypeormConfigService }),
+    ThrottlerModule.forRoot({
+      limit: 30,
+      ttl: 60,
+    }),
     UsersModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
