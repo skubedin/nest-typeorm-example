@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Password } from './entities/password.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { comparePassword, createHash } from '../common/helpers/hash.helper';
+import { Password } from './entities/password.entity';
 
 @Injectable()
 export class PasswordService {

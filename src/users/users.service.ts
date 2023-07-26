@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PasswordService } from '../password/password.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -20,7 +20,7 @@ export class UsersService {
     await this.userRepository.save(user);
 
     await this.passwordService.createPassword({
-    // @ts-ignore
+      // @ts-ignore
       password: createUserDto.password.id,
       userId: user.id,
     });
