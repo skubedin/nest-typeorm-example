@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PasswordService } from '../password/password.service';
@@ -10,8 +10,9 @@ import { User } from './entities/user.entity';
 export class UsersService {
   @InjectRepository(User)
   private readonly userRepository: Repository<User>;
-  @Inject(PasswordService)
-  private readonly passwordService: PasswordService;
+
+  constructor(private readonly passwordService: PasswordService) {}
+
   async create(createUserDto: CreateUserDto) {
     const user = new User();
     user.firstName = createUserDto.firstName;
@@ -21,7 +22,7 @@ export class UsersService {
 
     await this.passwordService.createPassword({
       // @ts-ignore
-      password: createUserDto.password.id,
+      password: createUserDto.password,
       userId: user.id,
     });
   }

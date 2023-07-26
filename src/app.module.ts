@@ -10,6 +10,7 @@ import { getEnvPath } from './common/helpers/env.helper';
 import { TypeormConfigService } from './shared/typeorm/typeorm.service';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 import { RequestLoggerMiddleware } from './common/middlewares/request-logger.middleware';
+import { AuthModule } from './auth/auth.module';
 
 const envPath = getEnvPath(`${__dirname}/common/envs`);
 
@@ -25,6 +26,7 @@ const envPath = getEnvPath(`${__dirname}/common/envs`);
       ttl: 60,
     }),
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
