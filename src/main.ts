@@ -11,6 +11,7 @@ import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 import { ErrorInterceptor } from './common/interceptors/error.interceptor';
 import { WinstonLogger } from './common/helpers/winston-logger.helper';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { FastifyRequest } from 'fastify';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
@@ -19,19 +20,26 @@ async function bootstrap() {
   const config: ConfigService = app.get(ConfigService);
   const port = config.get('PORT');
 
-  app.enableVersioning({
-    type: VersioningType.URI,
-    defaultVersion: '1',
-  });
+  const baseURL = config.get('BASE_URL');
+  const apiPrefix = config.get('API_PREFIX') || '';
+  const apiVersion = config.get('API_VERSION') || '1';
+  const apiVersionsList = new Array(+apiVersion).fill(0).map((_, i) => String(+apiVersion - i));
+
+  app
+    .enableVersioning({
+      type: VersioningType.CUSTOM,
+      defaultVersion: apiVersion,
+      extractor: (req: FastifyRequest) => req.headers['X-API-VERSION'] || apiVersionsList,
+    })
+    .setGlobalPrefix(apiPrefix);
 
   await app.register(helmet);
-  app.setGlobalPrefix('api');
 
   const configSwagger = new DocumentBuilder()
     .setTitle('Example')
     .setDescription('Example NestJS with TypeORM')
     .setVersion('1.0.0')
-    .addServer(config.get('BASE_URL'))
+    .addServer(baseURL)
     .setContact(
       'Sergey Molodchenko (developer)',
       'https://sergey-molodchenko.vercel.app',
@@ -53,8 +61,8 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ErrorInterceptor());
 
   await app.listen(port, () => {
-    WinstonLogger.log(`App listen on: ${config.get('BASE_URL')}`);
-    WinstonLogger.log(`App listen on: ${config.get('BASE_URL')}/doc`);
+    WinstonLogger.log(`App listen on: ${baseURL}`);
+    WinstonLogger.log(`App listen on: ${baseURL}/doc`);
   });
 }
 
