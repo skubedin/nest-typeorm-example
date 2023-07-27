@@ -5,11 +5,11 @@ import { SignUpDto } from './dto/sign-up.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(readonly authService: AuthService) {};
+  constructor(readonly authService: AuthService) {}
 
   @Post('sign-in')
-  async signIn(@Body() dto: SignInDto) {
-    const user = await this.authService.checkUser(dto);
+  signIn(@Body() dto: SignInDto) {
+    return this.authService.checkUser(dto);
     // const accessToken = await this.authService.createJWTToken(user);
     // const refreshToken = await this.authService.createJWTToken(user);
   }

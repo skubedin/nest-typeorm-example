@@ -1,5 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { User } from '../users/entities/user.entity';
+import { Injectable } from '@nestjs/common';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 
@@ -21,9 +20,7 @@ export class AuthService {
 
   async checkUser(dto: SignInDto) {}
 
-  async createJWTToken(dto: SignInDto) {
-
-  }
+  async createJWTToken(dto: SignInDto) {}
 
   async signIn(dto: SignInDto) {}
 }

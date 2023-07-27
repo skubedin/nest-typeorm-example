@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { FindManyOptions, FindOptionsWhere, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PasswordService } from '../password/password.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -27,12 +27,22 @@ export class UsersService {
     });
   }
 
-  findAll() {
-    return `This action returns all users`;
+  findAllV1(options?: FindManyOptions<User>) {
+    return this.userRepository.find({ ...options });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findAllV2(options?: FindManyOptions<User>) {
+    return this.userRepository.find({ ...options });
+  }
+
+  findOne(searchFields: FindOptionsWhere<User>): Promise<User> {
+    return this.userRepository.findOne({
+      select: ['id', 'firstName', 'lastName', 'email'],
+      relations: ['password'],
+      where: {
+        ...searchFields,
+      },
+    });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

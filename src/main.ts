@@ -12,6 +12,7 @@ import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 import { ErrorInterceptor } from './common/interceptors/error.interceptor';
 import { WinstonLogger } from './common/helpers/winston-logger.helper';
 import { AppModule } from './app.module';
+import { API_VERSION_HEADER } from './common/constants/headers';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
@@ -29,7 +30,7 @@ async function bootstrap() {
     .enableVersioning({
       type: VersioningType.CUSTOM,
       defaultVersion: apiVersion,
-      extractor: (req: FastifyRequest) => req.headers['X-API-VERSION'] || apiVersionsList,
+      extractor: (req: FastifyRequest) => req.headers[API_VERSION_HEADER] || apiVersionsList,
     })
     .setGlobalPrefix(apiPrefix);
 

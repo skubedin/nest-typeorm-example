@@ -20,7 +20,9 @@ const envPath = getEnvPath(`${__dirname}/common/envs`);
       envFilePath: envPath,
       isGlobal: true,
     }),
-    TypeOrmModule.forRootAsync({ useClass: TypeormConfigService }),
+    TypeOrmModule.forRootAsync({
+      useClass: TypeormConfigService,
+    }),
     ThrottlerModule.forRoot({
       limit: 30,
       ttl: 60,

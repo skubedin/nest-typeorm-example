@@ -46,5 +46,5 @@ export class User {
   public projects: Project[];
 
   @OneToOne(() => Password, (password) => password.user, {})
-  public password: string;
+  public password: Password;
 }
