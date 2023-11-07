@@ -10,6 +10,6 @@ export class AppController {
 
   @Get('healthz')
   healthz(): string {
-    return "I'm OK! o_-";
+    return "I'm OK! -_o";
   }
 }

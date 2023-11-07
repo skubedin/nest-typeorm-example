@@ -13,6 +13,8 @@ import { ErrorInterceptor } from './common/interceptors/error.interceptor';
 import { WinstonLogger } from './common/helpers/winston-logger.helper';
 import { AppModule } from './app.module';
 import { API_VERSION_HEADER } from './common/constants/headers';
+import { parseAuthorHelper } from './common/helpers/parse-author.helper';
+import { errorLogPromiseHelper } from './common/helpers/error-log-promise.helper';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
@@ -36,20 +38,21 @@ async function bootstrap() {
 
   await app.register(helmet);
 
+  const author = await errorLogPromiseHelper(parseAuthorHelper('AUTHOR'));
+
   const configSwagger = new DocumentBuilder()
     .setTitle('Example')
     .setDescription('Example NestJS with TypeORM')
     .setVersion('1.0.0')
     .addServer(baseURL)
-    .setContact(
-      'Sergey Molodchenko (developer)',
-      'https://sergey-molodchenko.vercel.app',
-      's.skubedin@gmail.com',
-    )
-    .addCookieAuth('access-token')
+    .setContact(author?.name, author?.url, author?.email)
+    // .addCookieAuth('access-token')
     // .addBasicAuth()
     // .addOAuth2()
-    // .addBearerAuth()
+    .addBearerAuth({
+      type: 'http',
+      name: 'access-token',
+    })
     .build();
 
   const document = SwaggerModule.createDocument(app, configSwagger);
