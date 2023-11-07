@@ -1,10 +1,10 @@
-import { Logger } from '@nestjs/common';
+import { WinstonLogger } from './winston-logger.helper';
 
 export async function errorLogPromiseHelper<T>(promise: Promise<T>): Promise<T | undefined> {
   try {
     return await promise;
   } catch (error) {
-    new Logger().error(error);
+    WinstonLogger.error(error);
     return;
   }
 }
