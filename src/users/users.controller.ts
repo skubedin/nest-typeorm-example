@@ -9,8 +9,9 @@ import {
   Version,
   ParseUUIDPipe,
   Inject,
+  Put, UseInterceptors
 } from '@nestjs/common';
-import { ApiHeader, ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiParam, ApiTags } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 
 import { API_VERSION_HEADER } from '../common/constants/headers';
@@ -19,6 +20,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { plainToUser, UserEntity } from './dto/User.entity';
+import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
+import { TransactionInterceptor } from '../common/interceptors/transaction.interceptor';
 
 @ApiTags('User')
 @Controller('users')
@@ -60,11 +63,22 @@ export class UsersController {
 
   @Patch(':id')
   update(@Param('id') id: User['id'], @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+    return this.usersService.update(id, updateUserDto);
+  }
+
+  @Put(':id/password')
+  @ApiParam({ name: 'id', example: '123e4567-e89b-12d3-a456-426655440000' })
+  @UseInterceptors(TransactionInterceptor)
+  changePassword(@Param('id') id: User['id'], @Body() updateUserDto: UpdateUserPasswordDto) {
+    return this.usersService.changePassword(
+      id,
+      updateUserDto?.newPassword,
+      updateUserDto?.oldPassword,
+    );
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+    return this.usersService.remove(id);
   }
 }

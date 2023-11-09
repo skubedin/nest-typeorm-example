@@ -1,9 +1,10 @@
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -17,9 +18,9 @@ export class Password {
   @Column({ length: 255 })
   public hash: string;
 
-  @OneToOne(() => User, (user) => user.password)
+  @ManyToOne(() => User, (user) => user.password, { nullable: false })
   @JoinColumn({ foreignKeyConstraintName: 'id', name: 'user_id' })
-  public user: string;
+  public user!: User;
 
   @CreateDateColumn({
     name: 'created_at',
@@ -30,4 +31,9 @@ export class Password {
     name: 'updated_at',
   })
   public updatedAt!: Date;
+
+  @DeleteDateColumn({
+    name: 'deleted_at',
+  })
+  public deletedAt!: Date;
 }

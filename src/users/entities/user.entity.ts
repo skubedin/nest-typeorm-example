@@ -5,10 +5,11 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  OneToMany,
+  OneToMany, ManyToOne, JoinColumn
 } from 'typeorm';
 import { Password } from '../../password/entities/password.entity';
 import { Project } from '../../project/entities/project.entity';
+import { RoleEntity } from '../../common/roles/entities/role.entity';
 
 @Entity()
 export class User {
@@ -45,6 +46,10 @@ export class User {
   @OneToMany(() => Project, (project) => project.user)
   public projects: Project[];
 
-  @OneToOne(() => Password, (password) => password.user, {})
+  @ManyToOne(() => RoleEntity)
+  @JoinColumn({ foreignKeyConstraintName: 'id', name: 'role_id' })
+  role: RoleEntity;
+
+  @OneToMany(() => Password, (password) => password.user, {})
   public password: Password;
 }

@@ -1,25 +1,40 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DataSource, IsNull } from 'typeorm';
+
 import { comparePassword, createHash } from '../common/helpers/hash.helper';
-import { Password } from './entities/password.entity';
+import { User } from '../users/entities/user.entity';
+import { PasswordRepository } from './password.repository';
 
 @Injectable()
 export class PasswordService {
-  @InjectRepository(Password)
-  private readonly passwordRepository: Repository<Password>;
+  constructor(
+    private readonly dataSource: DataSource,
+    private readonly passwordRepository: PasswordRepository,
+  ) {}
 
-  async createPassword({ userId, password }: { userId: string; password: string }) {
-    const passwordEntity = new Password();
-    passwordEntity.hash = await createHash(password);
-    passwordEntity.user = userId;
-    await this.passwordRepository.save(passwordEntity);
+  async changePassword(userId: string, newPassword: string) {
+    await this.passwordRepository.update(
+      {
+        user: { id: userId },
+        deletedAt: IsNull(),
+      },
+      { deletedAt: new Date() },
+    );
+
+    const hash = await createHash(newPassword);
+    await this.passwordRepository.create(userId, hash);
+  }
+
+  async createPassword({ user, password }: { user: User; password: string }) {
+    const hash = await createHash(password);
+
+    await this.passwordRepository.create(user.id, hash);
   }
 
   async comparePassword({ userId, password }: { userId: string; password: string }) {
     const passwordEntity = await this.passwordRepository.findOne({
-      select: ['hash'],
-      where: { id: userId },
+      select: ['id', 'hash'],
+      where: { user: { id: userId } },
     });
 
     return comparePassword(password, passwordEntity.hash);

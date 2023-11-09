@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { FindManyOptions, FindOptionsWhere, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PasswordService } from '../password/password.service';
@@ -21,10 +21,21 @@ export class UsersService {
     await this.userRepository.save(user);
 
     await this.passwordService.createPassword({
-      // @ts-ignore
       password: createUserDto.password,
-      userId: user.id,
+      user: user,
     });
+  }
+
+  async changePassword(id: string, newPassword: string, oldPassword: string) {
+    const user = await this.userRepository.findOneBy({ id });
+    const isValidOldPassword = await this.passwordService.comparePassword({
+      userId: id,
+      password: oldPassword,
+    });
+
+    if (!isValidOldPassword) throw new UnprocessableEntityException();
+
+    return await this.passwordService.changePassword(user.id, newPassword);
   }
 
   findAllV1(options?: FindManyOptions<User>) {
@@ -45,11 +56,11 @@ export class UsersService {
     });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  update(id: string, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} user`;
   }
 }

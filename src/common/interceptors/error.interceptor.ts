@@ -41,7 +41,7 @@ export class ErrorInterceptor implements NestInterceptor {
         let errorPath = '';
         if (error.stack) {
           const paths = [...error.stack.matchAll(/at\s.*\((?!node).*(?=\n)/gi)];
-          errorPath = paths.at(-1)[0];
+          if (paths.length > 0) errorPath = paths.at(-1)[0];
         }
 
         this.logger.error(
