@@ -1,20 +1,20 @@
 import 'winston-daily-rotate-file';
 
-import { HttpAdapterHost, NestFactory } from '@nestjs/core';
-import { ConfigService } from '@nestjs/config';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
-import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import helmet from '@fastify/helmet';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { FastifyRequest } from 'fastify';
 
-import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
-import { ErrorInterceptor } from './common/interceptors/error.interceptor';
-import { WinstonLogger } from './common/helpers/winston-logger.helper';
 import { AppModule } from './app.module';
 import { API_VERSION_HEADER } from './common/constants/headers';
-import { parseAuthorHelper } from './common/helpers/parse-author.helper';
+import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 import { errorLogPromiseHelper } from './common/helpers/error-log-promise.helper';
+import { parseAuthorHelper } from './common/helpers/parse-author.helper';
+import { WinstonLogger } from './common/helpers/winston-logger.helper';
+import { ErrorInterceptor } from './common/interceptors/error.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
@@ -41,7 +41,7 @@ async function bootstrap() {
   const author = await errorLogPromiseHelper(parseAuthorHelper('AUTHOR'));
 
   const configSwagger = new DocumentBuilder()
-    .setTitle('Example')
+    .setTitle('NestJS Example')
     .setDescription('Example NestJS with TypeORM')
     .setVersion('1.0.0')
     .addServer(baseURL)
@@ -51,8 +51,9 @@ async function bootstrap() {
     // .addOAuth2()
     .addBearerAuth({
       type: 'http',
-      name: 'access-token',
+      name: config.get('BEARER_AUTH_KEY') || 'Authorization',
     })
+    .addSecurityRequirements('bearer')
     .build();
 
   const document = SwaggerModule.createDocument(app, configSwagger);
