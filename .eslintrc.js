@@ -5,7 +5,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
+  plugins: ['@typescript-eslint/eslint-plugin', 'simple-import-sort'],
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
@@ -17,10 +17,12 @@ module.exports = {
     node: true,
     jest: true,
   },
-  ignorePatterns: ['.eslintrc.js'],
+  ignorePatterns: ['.eslintrc.js', 'dist/*'],
   rules: {
-    'max-len': ["error", {
-      code: 100,
+    "simple-import-sort/exports": "error",
+    'simple-import-sort/imports': 'error',
+    'max-len': ['error', {
+      'code': 100,
       'ignoreUrls': true,
       'ignoreComments': true,
       'ignoreTrailingComments': true

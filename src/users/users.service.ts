@@ -1,28 +1,26 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common';
-import { FindManyOptions, FindOptionsWhere, Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
+import { FindManyOptions, FindOptionsWhere } from 'typeorm';
+
 import { PasswordService } from '../password/password.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UsersService {
-  @InjectRepository(User)
-  private readonly userRepository: Repository<User>;
-
-  constructor(private readonly passwordService: PasswordService) {}
+  constructor(
+    private readonly passwordService: PasswordService,
+    private readonly userRepository: UserRepository,
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
-    const user = new User();
-    user.firstName = createUserDto.firstName;
-    user.lastName = createUserDto.lastName;
-    user.email = createUserDto.email;
-    await this.userRepository.save(user);
+    const { password, ...user } = createUserDto;
+    const userRecord = await this.userRepository.create(user);
 
     await this.passwordService.createPassword({
-      password: createUserDto.password,
-      user: user,
+      password,
+      userId: userRecord.identifiers[0].id,
     });
   }
 

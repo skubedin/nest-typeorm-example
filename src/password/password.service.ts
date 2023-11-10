@@ -25,10 +25,10 @@ export class PasswordService {
     await this.passwordRepository.create(userId, hash);
   }
 
-  async createPassword({ user, password }: { user: User; password: string }) {
+  async createPassword({ userId, password }: { userId: string; password: string }) {
     const hash = await createHash(password);
 
-    await this.passwordRepository.create(user.id, hash);
+    await this.passwordRepository.create(userId, hash);
   }
 
   async comparePassword({ userId, password }: { userId: string; password: string }) {

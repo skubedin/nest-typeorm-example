@@ -1,27 +1,28 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  Version,
-  ParseUUIDPipe,
+  Get,
   Inject,
-  Put, UseInterceptors
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post,
+  Put,
+  UseInterceptors,
+  Version,
 } from '@nestjs/common';
-import { ApiHeader, ApiParam, ApiTags } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import { ApiHeader, ApiParam, ApiTags } from '@nestjs/swagger';
 
 import { API_VERSION_HEADER } from '../common/constants/headers';
-import { UsersService } from './users.service';
+import { TransactionInterceptor } from '../common/interceptors/transaction.interceptor';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
-import { plainToUser, UserEntity } from './dto/User.entity';
 import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
-import { TransactionInterceptor } from '../common/interceptors/transaction.interceptor';
+import { plainToUser, UserEntity } from './dto/User.entity';
+import { User } from './entities/user.entity';
+import { UsersService } from './users.service';
 
 @ApiTags('User')
 @Controller('users')
@@ -32,6 +33,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  @UseInterceptors(TransactionInterceptor)
   async create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
