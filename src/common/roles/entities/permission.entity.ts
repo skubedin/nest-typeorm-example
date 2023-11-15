@@ -8,7 +8,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Actions, Entities } from '../constants';
+
+import { Action, Scope, Subject } from '../constants';
 import { RoleEntity } from './role.entity';
 
 @Entity()
@@ -17,10 +18,13 @@ export class PermissionEntity {
   public id!: string;
 
   @Column()
-  public action: Actions;
+  public action: Action;
 
   @Column()
-  public subject: Entities;
+  public subject: Subject;
+
+  @Column()
+  public scope: Scope;
 
   @Column({ default: false })
   inverted: boolean;

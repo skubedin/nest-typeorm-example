@@ -1,16 +1,18 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { CaslModule } from './casl/casl.module';
 import { getEnvPath } from './common/helpers/env.helper';
-import { TypeormConfigService } from './shared/typeorm/typeorm.service';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 import { RequestLoggerMiddleware } from './common/middlewares/request-logger.middleware';
-import { AuthModule } from './auth/auth.module';
+import { TypeormConfigService } from './shared/typeorm/typeorm.service';
+import { UsersModule } from './users/users.module';
 
 const envPath = getEnvPath(`${__dirname}/common/envs`);
 
@@ -29,6 +31,7 @@ const envPath = getEnvPath(`${__dirname}/common/envs`);
     }),
     UsersModule,
     AuthModule,
+    CaslModule,
   ],
   controllers: [AppController],
   providers: [

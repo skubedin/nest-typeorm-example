@@ -2,14 +2,16 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToOne,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  OneToMany, ManyToOne, JoinColumn
 } from 'typeorm';
+
+import { RoleEntity } from '../../common/roles/entities/role.entity';
 import { Password } from '../../password/entities/password.entity';
 import { Project } from '../../project/entities/project.entity';
-import { RoleEntity } from '../../common/roles/entities/role.entity';
 
 @Entity()
 export class User {
@@ -30,6 +32,8 @@ export class User {
 
   @Column({
     length: 255,
+    unique: true,
+    nullable: false,
   })
   public email: string;
 

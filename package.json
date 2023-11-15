@@ -8,6 +8,9 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "seed": "NODE_ENV=production ts-node -r tsconfig-paths/register src/database/seeders/seed.ts",
+    "seed:dev": "NODE_ENV=development ts-node -r tsconfig-paths/register src/database/seeders/seed.ts",
+    "seed:stage": "NODE_ENV=staging ts-node -r tsconfig-paths/register src/database/seeders/seed.ts",
     "start": "nest start",
     "start:dev": "NODE_ENV=development nest start --watch",
     "start:debug": "nest start --debug --watch",
