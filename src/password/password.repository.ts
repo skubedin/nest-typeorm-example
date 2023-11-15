@@ -1,11 +1,11 @@
 import { Inject, Injectable, Scope } from '@nestjs/common';
-import { DataSource, FindOptionsWhere } from 'typeorm';
 import { REQUEST } from '@nestjs/core';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { DataSource, FindOptionsWhere } from 'typeorm';
 import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
-import { FastifyCustomRequest } from '../common/types/request';
 import { BaseRepository } from '../common/repositories/base.repository';
+import { FastifyCustomRequest } from '../common/types/request';
 import { Password } from './entities/password.entity';
 
 @Injectable({ scope: Scope.REQUEST })

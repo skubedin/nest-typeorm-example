@@ -8,8 +8,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from '../../users/entities/user.entity';
+
 import { Scheme } from '../../scheme/entities/scheme.entity';
+import { User } from '../../users/entities/user.entity';
 
 @Entity()
 export class Project {

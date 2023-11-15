@@ -1,7 +1,7 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
+import { FastifyReply } from 'fastify';
 import { catchError, concatMap, finalize, Observable } from 'rxjs';
 import { DataSource } from 'typeorm';
-import { FastifyReply } from 'fastify';
 
 export const ENTITY_MANAGER_KEY = Symbol('ENTITY_MANAGER_KEY');
 

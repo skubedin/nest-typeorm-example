@@ -1,6 +1,6 @@
-import * as process from 'process';
-import { resolve } from 'path';
 import { existsSync } from 'fs';
+import { resolve } from 'path';
+import * as process from 'process';
 
 export function getEnvPath(dest: string) {
   const env = process.env.NODE_ENV;

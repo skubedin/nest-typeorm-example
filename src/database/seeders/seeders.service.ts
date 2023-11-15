@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 
 import { WinstonLogger } from '../../common/helpers/winston-logger.helper';
 import { PermissionsSeederService } from './permissions/permissions.service';
-import { UsersSeederService } from './users/users.service';
 import { RolesSeederService } from './roles/roles.service';
+import { UsersSeederService } from './users/users.service';
 
 @Injectable()
 export class SeedersService {
-  // @Inject(UsersSeederService)
   logger = WinstonLogger;
+
   constructor(
     private readonly usersSeederService: UsersSeederService,
     private readonly permissionsSeederService: PermissionsSeederService,

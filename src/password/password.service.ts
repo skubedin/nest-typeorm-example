@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { DataSource, IsNull } from 'typeorm';
 
 import { comparePassword, createHash } from '../common/helpers/hash.helper';
-import { User } from '../users/entities/user.entity';
 import { PasswordRepository } from './password.repository';
 
 @Injectable()
