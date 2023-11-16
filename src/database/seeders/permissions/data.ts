@@ -1,20 +1,20 @@
-import { Action, Scope, Subject } from '../../../common/roles/constants';
+import { Action, Roles, Scope, Subject } from '../../../common/roles/constants';
 
 export const permissions = [
   {
-    roleIndex: 0,
+    roleName: Roles.ADMIN,
     action: Action.Manage,
     scope: Scope.ALL,
     subject: Subject.ALL,
   },
   {
-    roleIndex: 1,
+    roleName: Roles.USER,
     action: Action.Read,
     scope: Scope.ALL,
     subject: Subject.USER,
   },
   {
-    roleIndex: 1,
+    roleName: Roles.USER,
     action: Action.Manage,
     scope: Scope.SELF,
     subject: Subject.PROJECT,

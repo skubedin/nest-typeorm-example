@@ -10,12 +10,12 @@ import {
 
 import { PermissionEntity } from './permission.entity';
 
-@Entity()
+@Entity({ name: 'role' })
 export class RoleEntity {
   @PrimaryGeneratedColumn('uuid')
   public id!: string;
 
-  @Column({ length: 255 })
+  @Column({ length: 255, nullable: false, unique: true })
   public name: string;
 
   @CreateDateColumn({ name: 'created_at' })

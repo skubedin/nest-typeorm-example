@@ -1,15 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { EntityManager } from 'typeorm';
 
 import { User } from '../../../users/entities/user.entity';
+import { RolesRecord } from '../types';
 import { users as usersData } from './data';
 
 @Injectable()
 export class UsersSeederService {
-  constructor(@InjectRepository(User) private readonly userModel: Repository<User>) {}
+  async create(manager: EntityManager, roles: RolesRecord) {
+    const userRepository = manager.getRepository(User);
+    const users = usersData.map(({ roleName, ...user }) => ({
+      ...user,
+      role: {
+        id: roles[roleName]?.id,
+      },
+    }));
 
-  async create() {
-    return this.userModel.save(usersData);
+    return userRepository.insert(users);
   }
 }
