@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { getEnvPath } from '../../common/helpers/env.helper';
-import { TypeormConfigService } from '../../shared/typeorm/typeorm.service';
+import { TypeormConfigService } from './typeorm/typeorm.service';
 import { PermissionsSeedersModule } from './permissions/permissions.module';
 import { RolesSeedersModule } from './roles/roles.module';
 import { SeedersService } from './seeders.service';
