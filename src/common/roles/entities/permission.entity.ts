@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Action, Scope, Subject } from '../constants';
+import { Action, Conditions, Scope, Subject } from '../constants';
 import { RoleEntity } from './role.entity';
 
 @Entity({ name: 'permission' })
@@ -30,7 +30,7 @@ export class PermissionEntity {
   inverted: boolean;
 
   @Column({ type: 'jsonb', nullable: true })
-  conditions?: { [key: string]: unknown } | null;
+  conditions: Conditions;
 
   @Column({ type: 'varchar', length: 500, nullable: true })
   reason?: string | null;

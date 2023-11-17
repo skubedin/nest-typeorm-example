@@ -24,3 +24,5 @@ export enum Roles {
   ADMIN = 'Admin',
   USER = 'User',
 }
+
+export type Conditions = { [key: string]: unknown } | null | undefined;
