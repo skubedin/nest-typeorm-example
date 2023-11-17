@@ -5,7 +5,7 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 export class RequestLoggerMiddleware implements NestMiddleware {
   private readonly logger = new Logger();
 
-  use(req: FastifyRequest['raw'], res: FastifyReply['raw'], next: (error?: any) => void): any {
+  use(req: FastifyRequest['raw'], res: FastifyReply['raw'], next: (error?: unknown) => void) {
     res.on('finish', () => {
       const statusCode = res.statusCode;
       if (statusCode === 401 || statusCode === 404 || statusCode === 405) {

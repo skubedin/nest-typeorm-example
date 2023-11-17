@@ -9,7 +9,7 @@ export const ENTITY_MANAGER_KEY = Symbol('ENTITY_MANAGER_KEY');
 export class TransactionInterceptor implements NestInterceptor {
   constructor(private readonly dataSource: DataSource) {}
 
-  async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
+  async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<unknown>> {
     const req = context.switchToHttp().getRequest<FastifyReply>();
 
     const queryRunner = this.dataSource.createQueryRunner();

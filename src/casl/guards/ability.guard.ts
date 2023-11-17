@@ -1,29 +1,20 @@
 import { createMongoAbility, ForcedSubject, MongoAbility, RawRuleOf } from '@casl/ability';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
 import { DataSource, IsNull } from 'typeorm';
 
-import { Action, Scope, Subject } from '../../common/roles/constants';
+import { Action, Subject } from '../../common/roles/constants';
 import { PermissionEntity } from '../../common/roles/entities/permission.entity';
 import { RequestUser } from '../../common/types/request';
 import { User } from '../../users/entities/user.entity';
 import { CHECK_ABILITY, RequiredRule } from '../decorators/abilities.decorator';
-
-const actions = Object.values(Action);
-const subjects = Object.values(Subject);
-const scopes = Object.values(Scope);
 
 export type Abilities = [Action, Subject | ForcedSubject<Exclude<Subject, Subject.ALL>>];
 export type AppAbility = MongoAbility<Abilities>;
 
 @Injectable()
 export class AbilityGuard implements CanActivate {
-  constructor(
-    private readonly reflector: Reflector,
-    private readonly dataSource: DataSource,
-    private readonly config: ConfigService,
-  ) {}
+  constructor(private readonly reflector: Reflector, private readonly dataSource: DataSource) {}
 
   createAbility = (rules: RawRuleOf<AppAbility>[]) => createMongoAbility(rules);
 

@@ -20,8 +20,8 @@ export class ErrorInterceptor implements NestInterceptor {
 
   intercept(
     context: ExecutionContext,
-    next: CallHandler<any>,
-  ): Observable<any> | Promise<Observable<any>> {
+    next: CallHandler,
+  ): Observable<unknown> | Promise<Observable<unknown>> {
     return next.handle().pipe(
       catchError((error) => {
         const { method, ip, url } = context.switchToHttp().getRequest();
