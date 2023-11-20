@@ -15,6 +15,7 @@ import { errorLogPromiseHelper } from './common/helpers/error-log-promise.helper
 import { parseAuthorHelper } from './common/helpers/parse-author.helper';
 import { WinstonLogger } from './common/helpers/winston-logger.helper';
 import { ErrorInterceptor } from './common/interceptors/error.interceptor';
+import { useContainer } from 'class-validator';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
@@ -64,6 +65,8 @@ async function bootstrap() {
 
   app.useGlobalFilters(new AllExceptionsFilter({ httpAdapter }));
   app.useGlobalInterceptors(new ErrorInterceptor());
+
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   await app.listen(port, () => {
     WinstonLogger.log(`App listen on: ${baseURL}`);

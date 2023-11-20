@@ -39,4 +39,10 @@ export class UserRepository extends BaseRepository {
 
     return userRepository.findOne(options);
   }
+
+  exist(options: FindManyOptions<User>) {
+    const userRepository = this.getRepository(User);
+
+    return userRepository.exist(options);
+  }
 }

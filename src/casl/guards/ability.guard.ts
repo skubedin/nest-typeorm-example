@@ -1,5 +1,5 @@
 import { createMongoAbility, ForcedSubject, MongoAbility, RawRuleOf } from '@casl/ability';
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, Logger } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { DataSource, IsNull } from 'typeorm';
 
@@ -48,7 +48,9 @@ export class AbilityGuard implements CanActivate {
       }
       return true;
     } catch (error) {
-      console.log('--->>> error', error);
+      const logger = new Logger();
+      logger.error(error);
+
       throw error;
     }
   }
