@@ -6,6 +6,7 @@ import { ConfigService } from '@nestjs/config';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { useContainer } from 'class-validator';
 import { FastifyRequest } from 'fastify';
 
 import { AppModule } from './app.module';
@@ -15,7 +16,6 @@ import { errorLogPromiseHelper } from './common/helpers/error-log-promise.helper
 import { parseAuthorHelper } from './common/helpers/parse-author.helper';
 import { WinstonLogger } from './common/helpers/winston-logger.helper';
 import { ErrorInterceptor } from './common/interceptors/error.interceptor';
-import { useContainer } from 'class-validator';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
@@ -52,11 +52,11 @@ async function bootstrap() {
     // .addOAuth2()
     .addBearerAuth({
       type: 'http',
-      name: config.get('BEARER_AUTH_KEY') || 'Authorization',
     })
     .addSecurityRequirements('bearer')
     .build();
 
+  console.log('--->>> ', config.get('BEARER_AUTH_KEY'));
   const document = SwaggerModule.createDocument(app, configSwagger);
   SwaggerModule.setup('doc', app, document);
 

@@ -15,9 +15,11 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { ApiHeader, ApiParam, ApiTags } from '@nestjs/swagger';
 
+import { IsPublic } from '../auth/guards/is-public.decorator';
 import { API_VERSION_HEADER } from '../common/constants/headers';
 import { TransactionInterceptor } from '../common/interceptors/transaction.interceptor';
 import { CreateUserDto } from './dto/create-user.dto';
+import { SetPasswordDto } from './dto/set-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
 import { plainToUser, UserEntity } from './dto/User.entity';
@@ -59,7 +61,11 @@ export class UsersController {
 
   @Get(':id')
   async findOne(@Param('id', ParseUUIDPipe) id: string): Promise<UserEntity> {
-    const user = await this.usersService.findOne({ id });
+    const user = await this.usersService.findOne({
+      where: {
+        id,
+      },
+    });
     return plainToUser(user);
   }
 
@@ -82,5 +88,12 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
+  }
+
+  @IsPublic()
+  @Post('set-password')
+  async setPassword(@Body() dto: SetPasswordDto) {
+    await this.usersService.setPassword(dto);
+    return;
   }
 }

@@ -1,10 +1,11 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
-import { FindManyOptions, FindOptionsWhere } from 'typeorm';
+import { ForbiddenException, Injectable, UnprocessableEntityException } from '@nestjs/common';
+import { FindManyOptions, FindOneOptions, FindOptionsWhere, IsNull, Not } from 'typeorm';
 
 import { Roles } from '../common/roles/constants';
 import { RoleRepository } from '../common/roles/role.repository';
 import { PasswordService } from '../password/password.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { SetPasswordDto } from './dto/set-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
@@ -48,12 +49,13 @@ export class UsersService {
     return this.userRepository.find({ ...options });
   }
 
-  findOne(searchFields: FindOptionsWhere<User>): Promise<User> {
+  findOne(searchFields: FindOneOptions<User>): Promise<User> {
     return this.userRepository.findOne({
       select: ['id', 'firstName', 'lastName', 'email'],
       relations: ['password'],
+      ...searchFields,
       where: {
-        ...searchFields,
+        ...searchFields.where,
       },
     });
   }
@@ -64,5 +66,27 @@ export class UsersService {
 
   remove(id: string) {
     return `This action removes a #${id} user`;
+  }
+
+  async setPassword(dto: SetPasswordDto) {
+    const user = await this.userRepository.findOne({
+      relations: {
+        password: true,
+      },
+      select: {
+        id: true,
+        email: true,
+        password: {
+          id: true,
+          hash: true,
+        },
+      },
+      where: { email: dto.email, password: { deletedAt: IsNull() } },
+    });
+    console.log('--->>> user', user);
+
+    if (!user || user.password.length > 0) throw new ForbiddenException();
+
+    await this.passwordService.createPassword({ userId: user.id, password: dto.password });
   }
 }

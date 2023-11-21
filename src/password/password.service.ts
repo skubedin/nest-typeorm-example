@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { DataSource, IsNull } from 'typeorm';
 
+import { AUTH_MESSAGES } from '../common/error-messages';
 import { comparePassword, createHash } from '../common/helpers/hash.helper';
 import { PasswordRepository } from './password.repository';
 
@@ -36,6 +37,8 @@ export class PasswordService {
       where: { user: { id: userId } },
     });
 
-    return comparePassword(password, passwordEntity.hash);
+    if (!passwordEntity) throw new ForbiddenException(AUTH_MESSAGES.invalidPasswordOrEmail);
+
+    return comparePassword(password, passwordEntity?.hash);
   }
 }

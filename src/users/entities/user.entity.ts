@@ -55,5 +55,5 @@ export class User {
   role: RoleEntity;
 
   @OneToMany(() => Password, (password) => password.user, {})
-  public password: Password;
+  public password: Password[];
 }

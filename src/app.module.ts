@@ -1,12 +1,14 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
+import { JwtModule } from '@nestjs/jwt';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { JwtConfigService } from './auth/jwt-config.service';
 import { CaslModule } from './casl/casl.module';
 import { getEnvPath } from './common/helpers/env.helper';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
