@@ -16,6 +16,6 @@ export type UserFromAuthGuard = Pick<User, 'id' | 'email' | 'firstName' | 'lastN
 };
 export type RequestUser = UserTokenPayload & UserFromAuthGuard;
 
-export type FastifyCustomRequest = FastifyRequest & { [ENTITY_MANAGER_KEY]: EntityManager } & {
-  user: RequestUser;
+export type FastifyCustomRequest = FastifyRequest & { [ENTITY_MANAGER_KEY]?: EntityManager } & {
+  user?: RequestUser;
 };
