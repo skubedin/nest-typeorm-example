@@ -1,5 +1,6 @@
 import 'winston-daily-rotate-file';
 
+import fastifyCookie from '@fastify/cookie';
 import helmet from '@fastify/helmet';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -38,6 +39,7 @@ async function bootstrap() {
     .setGlobalPrefix(apiPrefix);
 
   await app.register(helmet);
+  await app.register(fastifyCookie, { secret: config.get('COOKIE_SECRET') });
 
   const author = await errorLogPromiseHelper(parseAuthorHelper('AUTHOR'));
 

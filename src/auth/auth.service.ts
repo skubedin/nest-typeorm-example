@@ -1,11 +1,15 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { JwtSignOptions } from '@nestjs/jwt/dist/interfaces';
 
+import { AUTH_MESSAGES } from '../common/error-messages';
+import { cleanJwtTokenHelper } from '../common/helpers/clean-jwt-token.helper';
+import { UserTokenPayload } from '../common/types/request';
 import { PasswordService } from '../password/password.service';
 import { UsersService } from '../users/users.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
-import { AUTH_MESSAGES } from '../common/error-messages';
 
 @Injectable()
 export class AuthService {
@@ -13,6 +17,7 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly passwordService: PasswordService,
     private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
   ) {}
 
   async signUp(dto: SignUpDto) {
@@ -34,13 +39,29 @@ export class AuthService {
 
     if (!isValidPassword) throw new ForbiddenException(AUTH_MESSAGES.invalidPasswordOrEmail);
 
-    const payload = { sub: user.id, userName: user.firstName + ' ' + user.lastName };
+    const payload: UserTokenPayload = {
+      sub: user.id,
+      userName: user.firstName + ' ' + user.lastName,
+    };
+
+    return this.generateTokens(payload);
+  }
+
+  generateTokens(payload: UserTokenPayload) {
     return {
-      access_token: await this.createJWTToken(payload),
+      accessToken: this.createJWTToken(payload),
+      refreshToken: this.createJWTToken(payload, '7d'),
     };
   }
 
-  private async createJWTToken(payload: { [key: string]: unknown }) {
-    return this.jwtService.signAsync(payload);
+  verifyToken(token: string) {
+    const secret = this.configService.get('JWT_SECRET');
+    const cleanToken = cleanJwtTokenHelper(token);
+
+    return this.jwtService.verifyAsync(cleanToken, { secret });
+  }
+
+  private createJWTToken(payload: Buffer | object, expiresIn?: JwtSignOptions['expiresIn']) {
+    return this.jwtService.sign(payload, expiresIn ? { expiresIn } : undefined);
   }
 }

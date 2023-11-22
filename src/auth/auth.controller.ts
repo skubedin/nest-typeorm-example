@@ -1,27 +1,65 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { CookieSerializeOptions } from '@fastify/cookie';
+import { Body, Controller, ForbiddenException, Get, Post, Req, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { FastifyReply, FastifyRequest } from 'fastify';
 
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 import { IsPublic } from './guards/is-public.decorator';
 
+const JWT_REFRESH_COOKIE_NAME = 'refresh';
+const JWT_REFRESH_COOKIE_OPTIONS: CookieSerializeOptions = {
+  httpOnly: true,
+  maxAge: 60 * 60 * 24 * 7,
+  path: 'auth/refresh',
+  sameSite: 'none',
+  secure: false,
+};
+
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('sign-in')
   @IsPublic()
-  signIn(@Body() dto: SignInDto) {
-    return this.authService.signIn(dto);
-    // const accessToken = await this.authService.createJWTToken(user);
-    // const refreshToken = await this.authService.createJWTToken(user);
+  async signIn(@Body() dto: SignInDto, @Res({ passthrough: true }) res: FastifyReply) {
+    const tokens = await this.authService.signIn(dto);
+    res.setCookie(JWT_REFRESH_COOKIE_NAME, tokens.refreshToken, JWT_REFRESH_COOKIE_OPTIONS);
+
+    return {
+      accessToken: tokens.accessToken,
+    };
   }
 
   @Post('sign-up')
   @IsPublic()
   async signUp(@Body() dto: SignUpDto) {
     await this.authService.signUp(dto);
+  }
+
+  @Get('auth/refresh')
+  @IsPublic()
+  async refresh(@Req() req: FastifyRequest, @Res({ passthrough: true }) res) {
+    try {
+      const access = req.headers['authorization'];
+      if (!access) throw 'Invalid access';
+      const payload = await this.authService.verifyToken(access);
+
+      const refresh = req.cookies[JWT_REFRESH_COOKIE_NAME];
+      if (!refresh) throw 'Invalid refresh';
+      await this.authService.verifyToken(refresh);
+
+      const { iat, exp, ...clearPayload } = payload;
+
+      const { accessToken, refreshToken } = this.authService.generateTokens(clearPayload);
+
+      res.setCookie(JWT_REFRESH_COOKIE_NAME, refreshToken, JWT_REFRESH_COOKIE_OPTIONS);
+
+      return { accessToken };
+    } catch (e) {
+      throw new ForbiddenException();
+    }
   }
 }

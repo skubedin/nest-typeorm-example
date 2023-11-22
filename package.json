@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@casl/ability": "^6.5.0",
+    "@fastify/cookie": "^9.2.0",
     "@fastify/helmet": "^11.0.0",
     "@fastify/static": "^6.10.2",
     "@nestjs/common": "^10.0.0",

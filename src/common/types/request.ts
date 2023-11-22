@@ -7,8 +7,8 @@ import { ENTITY_MANAGER_KEY } from '../interceptors/transaction.interceptor';
 export type UserTokenPayload = {
   userName: string;
   sub: User['id'];
-  iat: number;
-  exp: number;
+  iat?: number;
+  exp?: number;
 };
 
 export type UserFromAuthGuard = Pick<User, 'id' | 'email' | 'firstName' | 'lastName'> & {

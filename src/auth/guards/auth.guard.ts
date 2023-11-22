@@ -10,6 +10,7 @@ import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { FastifyRequest } from 'fastify';
 
+import { cleanJwtTokenHelper } from '../../common/helpers/clean-jwt-token.helper';
 import { UserFromAuthGuard } from '../../common/types/request';
 import { UserRepository } from '../../users/user.repository';
 import { IS_PUBLIC_API } from './is-public.decorator';
@@ -39,7 +40,9 @@ export class AuthGuard implements CanActivate {
 
     try {
       const secret = this.configService.get('JWT_SECRET');
+      console.log('--->>> token', token);
       const payload = await this.jwtService.verifyAsync(token, { secret });
+      console.log('--->>> payload', payload);
 
       const user: UserFromAuthGuard = await this.userRepository.findOne({
         relations: {
@@ -76,6 +79,6 @@ export class AuthGuard implements CanActivate {
     if (!accessToken) return undefined;
     if (Array.isArray(accessToken)) accessToken = accessToken[0];
 
-    return accessToken.replace('Bearer ', '');
+    return cleanJwtTokenHelper(accessToken);
   }
 }
