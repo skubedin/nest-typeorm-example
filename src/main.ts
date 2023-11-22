@@ -56,7 +56,6 @@ async function bootstrap() {
     .addSecurityRequirements('bearer')
     .build();
 
-  console.log('--->>> ', config.get('BEARER_AUTH_KEY'));
   const document = SwaggerModule.createDocument(app, configSwagger);
   SwaggerModule.setup('doc', app, document);
 

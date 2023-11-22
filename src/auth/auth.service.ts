@@ -34,7 +34,7 @@ export class AuthService {
 
     if (!isValidPassword) throw new ForbiddenException(AUTH_MESSAGES.invalidPasswordOrEmail);
 
-    const payload = { sub: user.id, userName: user.firstName + user.lastName };
+    const payload = { sub: user.id, userName: user.firstName + ' ' + user.lastName };
     return {
       access_token: await this.createJWTToken(payload),
     };

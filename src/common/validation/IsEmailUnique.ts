@@ -39,9 +39,6 @@ export class CustomEmailValidation implements ValidatorConstraintInterface {
     const emailExist = await this.dataSource.getRepository(User).exist({ where: { email: value } });
     const constraint = validationArguments.constraints[0];
     const isValid = constraint.inverted ? emailExist : !emailExist;
-    console.log('--->>> constraint.inverted', constraint.inverted);
-    console.log('--->>> emailExist', emailExist);
-    console.log('--->>> isValid', isValid);
 
     if (!isValid) {
       throw new ForbiddenException(constraint.message || 'Email already exist');

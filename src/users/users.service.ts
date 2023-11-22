@@ -83,7 +83,6 @@ export class UsersService {
       },
       where: { email: dto.email, password: { deletedAt: IsNull() } },
     });
-    console.log('--->>> user', user);
 
     if (!user || user.password.length > 0) throw new ForbiddenException();
 

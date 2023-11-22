@@ -14,6 +14,6 @@ import { UsersService } from './users.service';
   imports: [PasswordModule, TypeOrmModule.forFeature([User])],
   controllers: [UsersController],
   providers: [CustomEmailValidation, MatchConstraint, RoleRepository, UserRepository, UsersService],
-  exports: [UsersService],
+  exports: [UsersService, UserRepository],
 })
 export class UsersModule {}

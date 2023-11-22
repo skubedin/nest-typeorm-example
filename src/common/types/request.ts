@@ -4,8 +4,18 @@ import { EntityManager } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { ENTITY_MANAGER_KEY } from '../interceptors/transaction.interceptor';
 
-export type FastifyCustomRequest = FastifyRequest & {
-  [ENTITY_MANAGER_KEY]: EntityManager;
+export type UserTokenPayload = {
+  userName: string;
+  sub: User['id'];
+  iat: number;
+  exp: number;
 };
 
-export type RequestUser = Omit<User, 'projects' | 'password'>;
+export type UserFromAuthGuard = Pick<User, 'id' | 'email' | 'firstName' | 'lastName'> & {
+  role: Pick<User['role'], 'id' | 'name'>;
+};
+export type RequestUser = UserTokenPayload & UserFromAuthGuard;
+
+export type FastifyCustomRequest = FastifyRequest & { [ENTITY_MANAGER_KEY]: EntityManager } & {
+  user: RequestUser;
+};
