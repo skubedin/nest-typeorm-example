@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "dockerize": "docker-compose build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "seed": "NODE_ENV=production ts-node -r tsconfig-paths/register src/database/seeders/seed.ts",
     "seed:dev": "NODE_ENV=development ts-node -r tsconfig-paths/register src/database/seeders/seed.ts",
@@ -15,6 +16,7 @@
     "start:dev": "NODE_ENV=development nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
+    "start:container": "docker-compose up",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",

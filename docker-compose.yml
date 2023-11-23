@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  main:
+    container_name: main
+    build:
+      context: .
+    env_file:
+      - ./src/common/envs/.development.env
+    environment:
+      DB_HOST: 'postgres'
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - "4567:4567"
+    command: bash -c "npm run seed:dev && npm run start:dev"
+    depends_on:
+      - postgres
+    restart: always
+    networks:
+      - default
+
+  postgres:
+    container_name: postgres
+    image: postgres:14
+    env_file:
+      - ./src/common/envs/.development.env
+    ports:
+      - "5433:5432"
+    volumes:
+      - nest_template_db:/var/lib/postgresql/data
+      - ./deploy/init-db.sql:/docker-entrypoint-initdb.d/create_database.sql
+    restart: always
+    networks:
+      - default
+
+volumes:
+  nest_template_db:
+
+networks:
+  default: {}
