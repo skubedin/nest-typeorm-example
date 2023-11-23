@@ -22,8 +22,8 @@ export class AuthService {
     private readonly refreshTokenRepository: RefreshTokenRepository,
   ) {}
 
-  async signUp(dto: SignUpDto) {
-    //
+  signUp(dto: SignUpDto) {
+    return this.usersService.create(dto);
   }
 
   async signIn(dto: SignInDto) {
