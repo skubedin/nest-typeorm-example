@@ -1,1 +1,1 @@
-CREATE DATABASE nest_template_db;
+CREATE DATABASE temp_chat_db;

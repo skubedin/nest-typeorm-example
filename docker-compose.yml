@@ -2,13 +2,13 @@ version: "3.9"
 
 services:
   main:
-    container_name: main
+    container_name: temp_chat_main
     build:
       context: .
     env_file:
       - ./src/common/envs/.development.env
     environment:
-      DB_HOST: 'postgres'
+      DB_HOST: 'temp_chat_main'
     volumes:
       - ./:/app
       - /app/node_modules
@@ -22,7 +22,7 @@ services:
       - default
 
   postgres:
-    container_name: postgres
+    container_name: temp_chat_postgres
     image: postgres:14
     env_file:
       - ./src/common/envs/.development.env
