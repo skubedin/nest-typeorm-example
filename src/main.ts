@@ -20,6 +20,13 @@ import { ErrorInterceptor } from './common/interceptors/error.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
+    // cors: {
+    //   origin: '*',
+    //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    //   preflightContinue: false,
+    //   optionsSuccessStatus: 204,
+    //   credentials: true,
+    // },
     logger: WinstonLogger,
   });
   const config: ConfigService = app.get(ConfigService);
@@ -69,7 +76,7 @@ async function bootstrap() {
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
-  await app.listen(port, () => {
+  await app.listen(port, '0.0.0.0', () => {
     WinstonLogger.log(`App listen on: ${baseURL}`);
     WinstonLogger.log(`App listen on: ${baseURL}/doc`);
   });

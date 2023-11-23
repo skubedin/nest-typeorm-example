@@ -10,6 +10,7 @@ import { PasswordService } from '../password/password.service';
 import { UsersService } from '../users/users.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
+import { RefreshTokenRepository } from './refresh-token.repository';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,7 @@ export class AuthService {
     private readonly passwordService: PasswordService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly refreshTokenRepository: RefreshTokenRepository,
   ) {}
 
   async signUp(dto: SignUpDto) {
@@ -59,6 +61,10 @@ export class AuthService {
     const cleanToken = cleanJwtTokenHelper(token);
 
     return this.jwtService.verifyAsync(cleanToken, { secret });
+  }
+
+  saveRefreshToken(token, expiresIn, userId: string) {
+    return this.refreshTokenRepository.create(token, expiresIn, userId);
   }
 
   private createJWTToken(payload: Buffer | object, expiresIn?: JwtSignOptions['expiresIn']) {

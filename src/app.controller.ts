@@ -11,8 +11,8 @@ import { Action, Subject } from './common/roles/constants';
 export class AppController {
   @Get('healthz')
   @IsPublic()
-  @Abilities({ subject: Subject.SCHEME, action: Action.MANAGE })
-  @UseGuards(AbilityGuard)
+  // @Abilities({ subject: Subject.SCHEME, action: Action.MANAGE })
+  // @UseGuards(AbilityGuard)
   healthz(): string {
     return "I'm OK! -_o";
   }

@@ -2,10 +2,13 @@ import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
-  Entity, JoinColumn, ManyToOne, OneToMany,
+  Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from 'typeorm';
+
 import { User } from '../../users/entities/user.entity';
 
 @Entity()
@@ -15,6 +18,9 @@ export class RefreshToken {
 
   @Column({ type: 'varchar', length: 500 })
   token: string;
+
+  @Column({ type: 'timestamp' })
+  expiresIn: Date;
 
   @DeleteDateColumn({
     name: 'deleted_at',
@@ -31,7 +37,7 @@ export class RefreshToken {
   })
   updatedAt: Date;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { nullable: false })
   @JoinColumn({ name: 'user_id' })
   user: User;
 }

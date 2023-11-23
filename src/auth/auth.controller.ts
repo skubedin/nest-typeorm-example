@@ -9,7 +9,7 @@ import { SignUpDto } from './dto/sign-up.dto';
 import { IsPublic } from './guards/is-public.decorator';
 
 const JWT_REFRESH_COOKIE_NAME = 'refresh';
-const JWT_REFRESH_COOKIE_OPTIONS: CookieSerializeOptions = {
+const JWT_REFRESH_COOKIE_OPTIONS = <CookieSerializeOptions>{
   httpOnly: true,
   maxAge: 60 * 60 * 24 * 7,
   path: 'auth/refresh',
@@ -39,16 +39,18 @@ export class AuthController {
     await this.authService.signUp(dto);
   }
 
-  @Get('auth/refresh')
+  @Get('refresh')
   @IsPublic()
   async refresh(@Req() req: FastifyRequest, @Res({ passthrough: true }) res) {
     try {
       const access = req.headers['authorization'];
-      if (!access) throw 'Invalid access';
+      if (!access) throw 'Invalid token';
+
       const payload = await this.authService.verifyToken(access);
 
       const refresh = req.cookies[JWT_REFRESH_COOKIE_NAME];
-      if (!refresh) throw 'Invalid refresh';
+      if (!refresh) throw 'Invalid token';
+
       await this.authService.verifyToken(refresh);
 
       const { iat, exp, ...clearPayload } = payload;
@@ -56,6 +58,11 @@ export class AuthController {
       const { accessToken, refreshToken } = this.authService.generateTokens(clearPayload);
 
       res.setCookie(JWT_REFRESH_COOKIE_NAME, refreshToken, JWT_REFRESH_COOKIE_OPTIONS);
+      await this.authService.saveRefreshToken(
+        refreshToken,
+        JWT_REFRESH_COOKIE_OPTIONS.maxAge,
+        clearPayload.sub,
+      );
 
       return { accessToken };
     } catch (e) {

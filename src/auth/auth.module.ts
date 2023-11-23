@@ -9,6 +9,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { JwtConfigService } from './jwt-config.service';
+import { RefreshTokenRepository } from './refresh-token.repository';
 
 const authGuardProvider: ClassProvider = {
   provide: APP_GUARD,
@@ -24,7 +25,7 @@ const authGuardProvider: ClassProvider = {
       useClass: JwtConfigService,
     }),
   ],
-  providers: [CustomEmailValidation, AuthService, authGuardProvider],
+  providers: [CustomEmailValidation, AuthService, authGuardProvider, RefreshTokenRepository],
   controllers: [AuthController],
 })
 export class AuthModule {}

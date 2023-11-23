@@ -1,21 +1,12 @@
-import { Inject, Injectable, Scope } from '@nestjs/common';
-import { REQUEST } from '@nestjs/core';
-import { DataSource, FindManyOptions, FindOneOptions, FindOptionsWhere } from 'typeorm';
+import { Injectable, Scope } from '@nestjs/common';
+import { FindManyOptions, FindOneOptions, FindOptionsWhere } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 import { BaseRepository } from '../common/repositories/base.repository';
-import { FastifyCustomRequest } from '../common/types/request';
 import { User } from './entities/user.entity';
 
 @Injectable({ scope: Scope.REQUEST })
 export class UserRepository extends BaseRepository {
-  constructor(
-    readonly dataSource: DataSource,
-    @Inject(REQUEST) readonly req: FastifyCustomRequest,
-  ) {
-    super(dataSource, req);
-  }
-
   create(entity: QueryDeepPartialEntity<User> | QueryDeepPartialEntity<User>[]) {
     const userRepository = this.getRepository(User);
 
