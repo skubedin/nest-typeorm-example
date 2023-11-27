@@ -22,8 +22,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { SetPasswordDto } from './dto/set-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
-import { plainToUser, UserEntity } from './dto/User.entity';
-import { User } from './entities/user.entity';
+import { plainToUser, UserEntity } from './entities/User.entity';
+import { User } from './models/user.entity';
 import { UsersService } from './users.service';
 
 @ApiTags('User')

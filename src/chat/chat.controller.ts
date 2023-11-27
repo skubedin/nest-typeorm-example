@@ -37,7 +37,7 @@ export class ChatController {
   @Post('msg')
   @UseInterceptors(TransactionInterceptor)
   async sendMessage(@Body() dto: CreateMessageDto, @Req() req: FastifyCustomRequest) {
-    await this.messageService.createMessage({ ...dto, authorId: req.user.sub });
+    return await this.messageService.createMessage({ ...dto, authorId: req.user.sub });
   }
 
   @Get(':id')

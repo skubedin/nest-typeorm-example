@@ -1,7 +1,7 @@
 import { FastifyRequest } from 'fastify';
 import { EntityManager } from 'typeorm';
 
-import { User } from '../../users/entities/user.entity';
+import { User } from '../../users/models/user.entity';
 import { ENTITY_MANAGER_KEY } from '../interceptors/transaction.interceptor';
 
 export type UserTokenPayload = {

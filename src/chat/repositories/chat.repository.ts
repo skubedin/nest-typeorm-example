@@ -2,10 +2,10 @@ import { Injectable, Scope } from '@nestjs/common';
 import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
 
 import { BaseRepository } from '../../common/repositories/base.repository';
-import { User } from '../../users/entities/user.entity';
-import { Chat } from '../entities/chat.entity';
-import { Message } from '../entities/message.entity';
-import { UserChat } from '../entities/user-chat.entity';
+import { User } from '../../users/models/user.entity';
+import { Chat } from '../models/chat.entity';
+import { Message } from '../models/message.entity';
+import { UserChat } from '../models/user-chat.entity';
 
 @Injectable({ scope: Scope.REQUEST })
 export class ChatRepository extends BaseRepository {

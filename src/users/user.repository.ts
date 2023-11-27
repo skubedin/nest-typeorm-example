@@ -3,7 +3,7 @@ import { FindManyOptions, FindOneOptions, FindOptionsWhere } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 import { BaseRepository } from '../common/repositories/base.repository';
-import { User } from './entities/user.entity';
+import { User } from './models/user.entity';
 
 @Injectable({ scope: Scope.REQUEST })
 export class UserRepository extends BaseRepository {

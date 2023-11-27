@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { User } from '../../users/entities/user.entity';
+import { User } from '../../users/models/user.entity';
 
 @Entity()
 export class RefreshToken {
@@ -19,7 +19,7 @@ export class RefreshToken {
   @Column({ type: 'varchar', length: 500 })
   token: string;
 
-  @Column({ type: 'timestamp' })
+  @Column({ name: 'expiresIn', type: 'timestamp' })
   expiresIn: Date;
 
   @DeleteDateColumn({

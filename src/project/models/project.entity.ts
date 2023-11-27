@@ -9,8 +9,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Scheme } from '../../scheme/entities/scheme.entity';
-import { User } from '../../users/entities/user.entity';
+import { Scheme } from '../../scheme/models/scheme.entity';
+import { User } from '../../users/models/user.entity';
 
 @Entity()
 export class Project {

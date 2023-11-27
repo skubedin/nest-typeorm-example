@@ -7,7 +7,7 @@ import { PasswordService } from '../password/password.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { SetPasswordDto } from './dto/set-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
+import { User } from './models/user.entity';
 import { UserRepository } from './user.repository';
 
 @Injectable()

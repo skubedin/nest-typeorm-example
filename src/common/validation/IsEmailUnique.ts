@@ -8,7 +8,7 @@ import {
 } from 'class-validator';
 import { DataSource } from 'typeorm';
 
-import { User } from '../../users/entities/user.entity';
+import { User } from '../../users/models/user.entity';
 
 interface IsEmailUniqueOptions {
   inverted: boolean;

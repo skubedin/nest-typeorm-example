@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { User } from '../../users/entities/user.entity';
+import { User } from '../../users/models/user.entity';
 import { Chat } from './chat.entity';
 
 @Entity()
@@ -20,7 +20,7 @@ export class Message {
   @Column({ type: 'varchar', length: 5000, nullable: false })
   text: string;
 
-  @Column({ type: 'boolean', default: true })
+  @Column({ name: 'is_unread', type: 'boolean', default: true })
   isUnread: boolean;
 
   @ManyToOne(() => User, { nullable: false })

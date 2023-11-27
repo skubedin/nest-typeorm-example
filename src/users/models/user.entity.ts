@@ -3,18 +3,16 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Chat } from '../../chat/entities/chat.entity';
+import { UserChat } from '../../chat/models/user-chat.entity';
 import { RoleEntity } from '../../common/roles/entities/role.entity';
-import { Password } from '../../password/entities/password.entity';
-import { Project } from '../../project/entities/project.entity';
-import { UserChat } from '../../chat/entities/user-chat.entity';
+import { Password } from '../../password/models/password.entity';
+import { Project } from '../../project/models/project.entity';
 
 @Entity()
 export class User {

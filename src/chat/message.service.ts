@@ -21,7 +21,8 @@ export class MessageService {
     recipientId: string;
   }) {
     const chatId = await this.chatService.findOrCreate(authorId, recipientId);
-    await this.messageRepository.create(text, authorId, chatId);
+    const msgInsertInfo = await this.messageRepository.create(text, authorId, chatId);
+    return { ...msgInsertInfo.raw[0], text };
   }
 
   async getChatMessages(

@@ -2,7 +2,7 @@ import { Injectable, Scope } from '@nestjs/common';
 import { FindManyOptions } from 'typeorm/find-options/FindManyOptions';
 
 import { BaseRepository } from '../common/repositories/base.repository';
-import { RefreshToken } from './entities/refresh-token.entity';
+import { RefreshToken } from './models/refresh-token.entity';
 
 @Injectable({ scope: Scope.REQUEST })
 export class RefreshTokenRepository extends BaseRepository {

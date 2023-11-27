@@ -1,6 +1,6 @@
 import { BaseRepository } from '../../common/repositories/base.repository';
-import { Chat } from '../entities/chat.entity';
-import { UserChat } from '../entities/user-chat.entity';
+import { Chat } from '../models/chat.entity';
+import { UserChat } from '../models/user-chat.entity';
 
 export class UserChatRepository extends BaseRepository {
   findGeneralId(userIds: string[]): Promise<{ chatId?: Chat['id'] } | undefined> {
