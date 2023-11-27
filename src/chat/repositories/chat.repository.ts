@@ -13,7 +13,7 @@ export class ChatRepository extends BaseRepository {
     const repo = this.getRepository(Chat);
     const builder = repo
       .createQueryBuilder('chat')
-      .select(['chat.id', 'chat.name'])
+      .select(['chat.id AS id', 'chat.name AS name'])
       .addSelect(
         (sq) =>
           sq
@@ -21,7 +21,9 @@ export class ChatRepository extends BaseRepository {
               'jsonb_build_object(' +
                 "'id', m.id," +
                 " 'text', m.text," +
-                " 'isUnread', m.isUnread," +
+                " 'isUnread', m.is_unread," +
+                " 'createdAt', m.created_at," +
+                " 'updatedAt', m.updated_at," +
                 " 'author', jsonb_build_object(" +
                 "'id', u.id," +
                 "'firstName', u.first_name," +
@@ -35,6 +37,14 @@ export class ChatRepository extends BaseRepository {
             .orderBy({ 'm.created_at': 'DESC' })
             .limit(1),
         'lastMessage',
+      )
+      .addSelect(
+        (sq) =>
+          sq
+            .select('COUNT(id) AS unreadMessages')
+            .from(Message, 'm')
+            .where('chat_id = chat.id AND is_unread = true AND author_id = :userId'),
+        'unreadMessages',
       )
       .distinct(true)
       .leftJoin(UserChat, 'uc', 'uc.chat_id = chat.id AND uc.user_id = :userId')

@@ -4,15 +4,12 @@ import {
   ForbiddenException,
   Get,
   Param,
-  ParseUUIDPipe,
   Post,
   Query,
   Req,
   UseInterceptors,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
-import { ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 
 import { TransactionInterceptor } from '../common/interceptors/transaction.interceptor';
 import { FastifyCustomRequest } from '../common/types/request';
@@ -20,6 +17,7 @@ import { ChatService } from './chat.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { GetChatMessagesDto } from './dto/get-chat-messages.dto';
 import { MessageService } from './message.service';
+import { ChatListScheme, plainToChat } from './schemes/chat-list.scheme';
 
 @ApiTags('Chat')
 @Controller('talk')
@@ -30,8 +28,11 @@ export class ChatController {
   ) {}
 
   @Get('chats')
-  getAllChats(@Req() req: FastifyCustomRequest) {
-    return this.chatService.getAllChatsWithLastMessage(req.user.sub);
+  @ApiOperation({ summary: 'Chat list', description: 'API for getting a list of all chats' })
+  @ApiOkResponse({ type: ChatListScheme })
+  async getAllChats(@Req() req: FastifyCustomRequest) {
+    const chats = await this.chatService.getAllChatsWithLastMessage(req.user.sub);
+    return plainToChat(chats);
   }
 
   @Post('msg')

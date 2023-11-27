@@ -2,14 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-import { User } from '../../users/models/user.entity';
 import { Message } from './message.entity';
 import { UserChat } from './user-chat.entity';
 
@@ -46,17 +43,6 @@ export class Chat {
   })
   public updatedAt: Date;
 
-  // @ManyToMany(() => User)
-  // @JoinTable({
-  //   name: 'user_chat',
-  //   joinColumn: {
-  //     name: 'chat_id',
-  //   },
-  //   inverseJoinColumn: {
-  //     name: 'user_id',
-  //   },
-  // })
-  // public users?: User[];
   @OneToMany(() => UserChat, (uc) => uc.chat)
   public userChats: UserChat[];
 }

@@ -22,7 +22,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { SetPasswordDto } from './dto/set-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
-import { plainToUser, UserEntity } from './entities/User.entity';
+import { plainToUser, UserScheme } from './schemes/user.scheme';
 import { User } from './models/user.entity';
 import { UsersService } from './users.service';
 
@@ -54,13 +54,13 @@ export class UsersController {
   })
   @Get()
   @Version('2')
-  async findAllV2(): Promise<UserEntity[]> {
+  async findAllV2(): Promise<UserScheme[]> {
     const users = await this.usersService.findAllV2();
     return plainToUser(users);
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseUUIDPipe) id: string): Promise<UserEntity> {
+  async findOne(@Param('id', ParseUUIDPipe) id: string): Promise<UserScheme> {
     const user = await this.usersService.findOne({
       where: {
         id,
