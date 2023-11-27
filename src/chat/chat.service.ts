@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { ChatRepository } from './repositories/chat.repository';
 import { MessageRepository } from './repositories/message.repository';
 import { UserChatRepository } from './repositories/user-chat.repository';
+import { Roles } from '../common/roles/constants';
 
 @Injectable()
 export class ChatService {
@@ -29,5 +30,11 @@ export class ChatService {
     }
 
     return chatId;
+  }
+
+  async hasAccess(user: { roleName: string; id: string }, chatId: string) {
+    if (user.roleName === Roles.ADMIN) return true;
+
+    return this.userChatRepository.exist(chatId, user.id);
   }
 }

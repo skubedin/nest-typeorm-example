@@ -1,6 +1,6 @@
 import { BaseRepository } from '../../common/repositories/base.repository';
-import { UserChat } from '../entities/user-chat.entity';
 import { Chat } from '../entities/chat.entity';
+import { UserChat } from '../entities/user-chat.entity';
 
 export class UserChatRepository extends BaseRepository {
   findGeneralId(userIds: string[]): Promise<{ chatId?: Chat['id'] } | undefined> {
@@ -18,5 +18,10 @@ export class UserChatRepository extends BaseRepository {
   create(chatId, userId) {
     const repo = this.getRepository(UserChat);
     return repo.insert({ user: { id: userId }, chat: { id: chatId } });
+  }
+
+  exist(chatId: string, userId: string) {
+    const repo = this.getRepository(UserChat);
+    return repo.exist({ where: { user: { id: userId }, chat: { id: chatId } } });
   }
 }

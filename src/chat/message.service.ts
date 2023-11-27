@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { ChatService } from './chat.service';
 import { MessageRepository } from './repositories/message.repository';
+import { IsNull } from 'typeorm';
 
 @Injectable()
 export class MessageService {
@@ -21,5 +22,42 @@ export class MessageService {
   }) {
     const chatId = await this.chatService.findOrCreate(authorId, recipientId);
     await this.messageRepository.create(text, authorId, chatId);
+  }
+
+  async getChatMessages(
+    chatId: string,
+    param?: {
+      perPage?: number;
+      endDate?: Date;
+      page?: number;
+      startDate?: Date;
+    },
+  ) {
+    const perPage = param?.perPage ?? 25;
+    const skip = (param?.page ?? 1) * perPage - perPage;
+
+    return this.messageRepository.findAll({
+      skip,
+      select: {
+        id: true,
+        isUnread: true,
+        text: true,
+        createdAt: true,
+        updatedAt: true,
+        author: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+      },
+      relations: {
+        author: true,
+      },
+      where: {
+        chat: { id: chatId },
+        deletedAt: IsNull(),
+      },
+      take: perPage,
+    });
   }
 }
