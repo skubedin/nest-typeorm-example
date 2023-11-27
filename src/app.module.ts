@@ -14,6 +14,7 @@ import { RequestLoggerMiddleware } from './common/middlewares/request-logger.mid
 import { ProjectModule } from './project/project.module';
 import { TypeormConfigService } from './shared/typeorm/typeorm.service';
 import { UsersModule } from './users/users.module';
+import { ChatModule } from './chat/chat.module';
 
 const envPath = getEnvPath(`${__dirname}/common/envs`);
 
@@ -33,6 +34,7 @@ const envPath = getEnvPath(`${__dirname}/common/envs`);
     UsersModule,
     AuthModule,
     CaslModule,
+    ChatModule,
     ProjectModule,
   ],
   controllers: [AppController],

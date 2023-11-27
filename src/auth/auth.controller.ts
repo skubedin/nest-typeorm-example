@@ -12,8 +12,8 @@ const JWT_REFRESH_COOKIE_NAME = 'refresh';
 const JWT_REFRESH_COOKIE_OPTIONS = <CookieSerializeOptions>{
   httpOnly: true,
   maxAge: 60 * 60 * 24 * 7,
-  path: 'auth/refresh',
-  sameSite: 'none',
+  path: '/auth/refresh',
+  // sameSite: 'none',
   secure: false,
 };
 
@@ -46,12 +46,10 @@ export class AuthController {
       const access = req.headers['authorization'];
       if (!access) throw 'Invalid token';
 
-      const payload = await this.authService.verifyToken(access);
-
       const refresh = req.cookies[JWT_REFRESH_COOKIE_NAME];
       if (!refresh) throw 'Invalid token';
 
-      await this.authService.verifyToken(refresh);
+      const payload = await this.authService.verifyToken(refresh);
 
       const { iat, exp, ...clearPayload } = payload;
 
