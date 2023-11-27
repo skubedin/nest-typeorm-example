@@ -37,6 +37,7 @@ export class CustomEmailValidation implements ValidatorConstraintInterface {
 
   async validate(value: string, validationArguments?: ValidationArguments): Promise<boolean> {
     const emailExist = await this.dataSource.getRepository(User).exist({ where: { email: value } });
+    console.log('--->>> emailExist', emailExist);
     const constraint = validationArguments.constraints[0];
     const isValid = constraint.inverted ? emailExist : !emailExist;
 
