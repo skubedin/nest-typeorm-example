@@ -49,6 +49,10 @@ export class ChatController {
     format: 'uuid',
     example: '254a8188-2dff-4053-8816-45c0dd08fb08',
   })
+  @ApiOperation({
+    summary: 'Message list',
+    description: 'API for getting a list of messages in the chat',
+  })
   async getChatMessages(
     @Param('id') chatId: string,
     @Query() query: GetChatMessagesDto,

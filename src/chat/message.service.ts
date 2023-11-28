@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
+import { IsNull, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 
 import { ChatService } from './chat.service';
 import { MessageRepository } from './repositories/message.repository';
-import { IsNull } from 'typeorm';
 
 @Injectable()
 export class MessageService {
@@ -57,6 +57,8 @@ export class MessageService {
       where: {
         chat: { id: chatId },
         deletedAt: IsNull(),
+        ...(param.startDate && { createdAt: MoreThanOrEqual(param.startDate) }),
+        ...(param.endDate && { createdAt: LessThanOrEqual(param.endDate) }),
       },
       take: perPage,
     });
