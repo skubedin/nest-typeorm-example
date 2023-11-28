@@ -45,6 +45,8 @@ async function bootstrap() {
     })
     .setGlobalPrefix(apiPrefix);
 
+  app.enableCors();
+
   await app.register(helmet);
   await app.register(fastifyCookie, { secret: config.get('COOKIE_SECRET') });
 
