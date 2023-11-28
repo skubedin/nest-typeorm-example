@@ -1,10 +1,11 @@
 import { ForbiddenException, Injectable, UnprocessableEntityException } from '@nestjs/common';
-import { FindManyOptions, FindOneOptions, FindOptionsWhere, IsNull, Not } from 'typeorm';
+import { FindManyOptions, FindOneOptions, FindOptionsWhere, ILike, IsNull, Like, Not } from 'typeorm';
 
 import { Roles } from '../common/roles/constants';
 import { RoleRepository } from '../common/roles/role.repository';
 import { PasswordService } from '../password/password.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { GetUsersQueryDto } from './dto/get-users-query.dto';
 import { SetPasswordDto } from './dto/set-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './models/user.entity';
@@ -45,8 +46,27 @@ export class UsersService {
     return this.userRepository.find({ ...options });
   }
 
-  findAllV2(options?: FindManyOptions<User>) {
-    return this.userRepository.find({ ...options });
+  findAllV2(query?: GetUsersQueryDto) {
+    const page = query?.page ?? 1;
+    const perPage = query?.perPage ?? 25;
+    const skip = perPage * page - perPage;
+    const search = query?.search ? `%${query.search}%` : '';
+
+    return this.userRepository.find({
+      where: [
+        {
+          firstName: ILike(search),
+        },
+        {
+          lastName: ILike(search),
+        },
+        {
+          email: ILike(search),
+        },
+      ],
+      skip,
+      take: perPage,
+    });
   }
 
   findOne(searchFields: FindOneOptions<User>): Promise<User> {

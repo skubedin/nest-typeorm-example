@@ -8,7 +8,7 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
-  Put,
+  Put, Query,
   UseInterceptors,
   Version,
 } from '@nestjs/common';
@@ -25,6 +25,7 @@ import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
 import { plainToUser, UserScheme } from './schemes/user.scheme';
 import { User } from './models/user.entity';
 import { UsersService } from './users.service';
+import { GetUsersQueryDto } from './dto/get-users-query.dto';
 
 @ApiTags('User')
 @Controller('users')
@@ -54,8 +55,8 @@ export class UsersController {
   })
   @Get()
   @Version('2')
-  async findAllV2(): Promise<UserScheme[]> {
-    const users = await this.usersService.findAllV2();
+  async findAllV2(@Query() query: GetUsersQueryDto): Promise<UserScheme[]> {
+    const users = await this.usersService.findAllV2(query);
     return plainToUser(users);
   }
 
