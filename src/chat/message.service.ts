@@ -19,7 +19,7 @@ export class MessageService {
     text: string;
     authorId: string;
     recipientId: string;
-  }) {
+  }): Promise<{ id: string; created_at: string; updated_at: string }> {
     const chatId = await this.chatService.findOrCreate(authorId, recipientId);
     const msgInsertInfo = await this.messageRepository.create(text, authorId, chatId);
     return { ...msgInsertInfo.raw[0], text };
@@ -61,6 +61,27 @@ export class MessageService {
         ...(param.endDate && { createdAt: LessThanOrEqual(param.endDate) }),
       },
       take: perPage,
+    });
+  }
+
+  findMessage(param: { id: string; author?: boolean }) {
+    return this.messageRepository.findOne({
+      select: {
+        id: true,
+        text: true,
+        isUnread: true,
+        createdAt: true,
+        updatedAt: true,
+        author: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+      },
+      relations: {
+        author: param.author,
+      },
+      where: { id: param.id },
     });
   }
 }

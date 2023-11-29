@@ -18,6 +18,7 @@ import { CreateMessageDto } from './dto/create-message.dto';
 import { GetChatMessagesDto } from './dto/get-chat-messages.dto';
 import { MessageService } from './message.service';
 import { ChatListScheme, plainToChat } from './schemes/chat-list.scheme';
+import { MessageScheme, plainToMessage } from './schemes/message.scheme';
 
 @ApiTags('Chat')
 @Controller('talk')
@@ -37,8 +38,18 @@ export class ChatController {
 
   @Post('msg')
   @UseInterceptors(TransactionInterceptor)
+  @ApiOkResponse({ type: MessageScheme })
   async sendMessage(@Body() dto: CreateMessageDto, @Req() req: FastifyCustomRequest) {
-    return await this.messageService.createMessage({ ...dto, authorId: req.user.sub });
+    const messageInsertValue = await this.messageService.createMessage({
+      ...dto,
+      authorId: req.user.sub,
+    });
+    const message = await this.messageService.findMessage({
+      id: messageInsertValue.id,
+      author: true,
+    });
+
+    return plainToMessage(message);
   }
 
   @Get(':id')

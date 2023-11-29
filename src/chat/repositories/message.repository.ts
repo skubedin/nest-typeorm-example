@@ -3,6 +3,7 @@ import { FindManyOptions } from 'typeorm';
 
 import { BaseRepository } from '../../common/repositories/base.repository';
 import { Message } from '../models/message.entity';
+import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
 
 @Injectable({ scope: Scope.REQUEST })
 export class MessageRepository extends BaseRepository {
@@ -16,5 +17,11 @@ export class MessageRepository extends BaseRepository {
     const repo = this.getRepository(Message);
 
     return repo.find(options);
+  }
+
+  findOne(options: FindOneOptions<Message>) {
+    const repo = this.getRepository(Message);
+
+    return repo.findOne(options);
   }
 }
