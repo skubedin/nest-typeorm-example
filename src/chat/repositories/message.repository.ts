@@ -1,9 +1,10 @@
 import { Injectable, Scope } from '@nestjs/common';
-import { FindManyOptions } from 'typeorm';
+import { FindManyOptions, FindOptionsWhere } from 'typeorm';
 
 import { BaseRepository } from '../../common/repositories/base.repository';
 import { Message } from '../models/message.entity';
 import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 @Injectable({ scope: Scope.REQUEST })
 export class MessageRepository extends BaseRepository {
@@ -23,5 +24,22 @@ export class MessageRepository extends BaseRepository {
     const repo = this.getRepository(Message);
 
     return repo.findOne(options);
+  }
+
+  updateById(where: FindOptionsWhere<Message>, partialEntity: QueryDeepPartialEntity<Message>) {
+    const repo = this.getRepository(Message);
+
+    return repo.update(where, partialEntity);
+  }
+
+  exist(options: FindManyOptions<Message>) {
+    const repo = this.getRepository(Message);
+
+    return repo.exist(options);
+  }
+
+  createBuilder(alias: string) {
+    const repo = this.getRepository(Message);
+    return repo.createQueryBuilder(alias);
   }
 }

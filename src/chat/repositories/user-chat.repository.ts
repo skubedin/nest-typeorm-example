@@ -8,7 +8,10 @@ export class UserChatRepository extends BaseRepository {
     const builder = repo
       .createQueryBuilder('uc')
       .select('chat_id as "chatId"')
-      .where('user_id IN (:...userIds)', { userIds })
+      .where(
+        'chat_id IN (SELECT chat_id FROM user_chat WHERE user_id = :recipientId) AND user_id = :userId',
+        { userId: userIds[0], recipientId: userIds[1] },
+      )
       .groupBy('chat_id')
       .having('count(chat_id) > 1');
 

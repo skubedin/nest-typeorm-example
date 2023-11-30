@@ -23,6 +23,13 @@ export class Chat {
   })
   public name: string;
 
+  @Column({
+    name: 'is_self',
+    type: 'boolean',
+    default: false,
+  })
+  public isSelf: boolean;
+
   @OneToMany(() => Message, (msg) => msg.chat, { nullable: true })
   messages?: Message[];
 

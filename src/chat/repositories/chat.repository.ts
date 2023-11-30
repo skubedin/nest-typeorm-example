@@ -6,6 +6,7 @@ import { User } from '../../users/models/user.entity';
 import { Chat } from '../models/chat.entity';
 import { Message } from '../models/message.entity';
 import { UserChat } from '../models/user-chat.entity';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 @Injectable({ scope: Scope.REQUEST })
 export class ChatRepository extends BaseRepository {
@@ -58,8 +59,8 @@ export class ChatRepository extends BaseRepository {
     return repo.findOne(options);
   }
 
-  create() {
+  create(entity: QueryDeepPartialEntity<Chat>) {
     const repo = this.getRepository(Chat);
-    return repo.insert({});
+    return repo.insert(entity);
   }
 }

@@ -1,16 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
-import { ChatRepository } from './repositories/chat.repository';
-import { MessageRepository } from './repositories/message.repository';
-import { UserChatRepository } from './repositories/user-chat.repository';
 import { Roles } from '../common/roles/constants';
+import { ChatRepository } from './repositories/chat.repository';
+import { UserChatRepository } from './repositories/user-chat.repository';
 
 @Injectable()
 export class ChatService {
   constructor(
     private readonly chatRepository: ChatRepository,
     private readonly userChatRepository: UserChatRepository,
-    private readonly messageRepository: MessageRepository,
   ) {}
 
   getAllChatsWithLastMessage(userId: string) {
@@ -22,11 +20,11 @@ export class ChatService {
     let chatId = userChat?.chatId;
 
     if (!userChat) {
-      const chat = await this.chatRepository.create();
+      const chat = await this.chatRepository.create({ isSelf: authorId === recipientId });
       chatId = chat.raw[0].id;
 
       await this.userChatRepository.create(chatId, authorId);
-      await this.userChatRepository.create(chatId, recipientId);
+      if (authorId !== recipientId) await this.userChatRepository.create(chatId, recipientId);
     }
 
     return chatId;

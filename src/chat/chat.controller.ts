@@ -3,7 +3,7 @@ import {
   Controller,
   ForbiddenException,
   Get,
-  Param,
+  Param, Patch,
   Post,
   Query,
   Req,
@@ -76,5 +76,14 @@ export class ChatController {
     if (!hasAccess) throw new ForbiddenException();
 
     return this.messageService.getChatMessages(chatId, query);
+  }
+
+  @Patch('msg/read/:id')
+  async readMessage(@Param('id') msgId: string, @Req() req: FastifyCustomRequest) {
+    const userId = req.user.sub;
+    const canRead = await this.messageService.canReadMessage(msgId, userId);
+    if (!canRead) throw new ForbiddenException();
+
+    await this.messageService.readMessage(msgId, userId);
   }
 }

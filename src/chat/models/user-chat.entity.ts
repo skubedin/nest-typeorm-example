@@ -1,6 +1,6 @@
 import {
   Column,
-  CreateDateColumn,
+  CreateDateColumn, DeleteDateColumn,
   Entity, JoinColumn, ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -20,6 +20,11 @@ export class UserChat {
   @ManyToOne(() => Chat)
   @JoinColumn({ name: 'chat_id' })
   chat: Chat;
+
+  @DeleteDateColumn({
+    name: 'deleted_at',
+  })
+  public deletedAt: Date;
 
   @CreateDateColumn({
     name: 'created_at',

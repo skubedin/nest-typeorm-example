@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { IsNull, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
+import { IsNull, LessThanOrEqual, MoreThanOrEqual, Not } from 'typeorm';
 
 import { ChatService } from './chat.service';
+import { Chat } from './models/chat.entity';
+import { UserChat } from './models/user-chat.entity';
 import { MessageRepository } from './repositories/message.repository';
 
 @Injectable()
@@ -83,5 +85,29 @@ export class MessageService {
       },
       where: { id: param.id },
     });
+  }
+
+  async readMessage(msgId: string, userId: string) {
+    await this.messageRepository.updateById(
+      { id: msgId, author: { id: Not(userId) } },
+      { isUnread: false },
+    );
+  }
+
+  canReadMessage(msgId: string, userId: string) {
+    return this.messageRepository
+      .createBuilder('m')
+      .select()
+      .leftJoin(Chat, 'c', 'c.id = m.chat_id')
+      .leftJoin(UserChat, 'uc', 'uc.chat_id = m.chat_id')
+      .where(
+        'uc.user_id = :userId ' +
+          'AND (m.author_id <> :userId OR (m.author_id = :userId AND c.is_self = TRUE))',
+        {
+          msgId,
+          userId,
+        },
+      )
+      .getExists();
   }
 }
