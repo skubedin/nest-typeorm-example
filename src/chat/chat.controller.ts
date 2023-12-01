@@ -95,6 +95,13 @@ export class ChatController {
   }
 
   @Patch('msg/read/:id')
+  @ApiParam({
+    name: 'msgId',
+    description: 'Message id',
+    type: 'string',
+    format: 'uuid',
+    example: '254a8188-2dff-4053-8816-45c0dd08fb08',
+  })
   @ApiOperation({ summary: 'Set read status', description: 'Mark message as read' })
   async readMessage(@Param('id') msgId: string, @Req() req: FastifyCustomRequest) {
     const userId = req.user.sub;
