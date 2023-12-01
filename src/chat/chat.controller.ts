@@ -95,6 +95,7 @@ export class ChatController {
   }
 
   @Patch('msg/read/:id')
+  @ApiOperation({ summary: 'Set read status', description: 'Mark message as read' })
   async readMessage(@Param('id') msgId: string, @Req() req: FastifyCustomRequest) {
     const userId = req.user.sub;
     const canRead = await this.messageService.canReadMessage(msgId, userId);
