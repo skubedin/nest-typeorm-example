@@ -3,7 +3,8 @@ import {
   Controller,
   ForbiddenException,
   Get,
-  Param, Patch,
+  Param,
+  Patch,
   Post,
   Query,
   Req,
@@ -15,6 +16,7 @@ import { TransactionInterceptor } from '../common/interceptors/transaction.inter
 import { FastifyCustomRequest } from '../common/types/request';
 import { ChatService } from './chat.service';
 import { CreateMessageDto } from './dto/create-message.dto';
+import { GetChatDto } from './dto/get-chat.dto';
 import { GetChatMessagesDto } from './dto/get-chat-messages.dto';
 import { MessageService } from './message.service';
 import { ChatListScheme, plainToChat } from './schemes/chat-list.scheme';
@@ -34,6 +36,20 @@ export class ChatController {
   async getAllChats(@Req() req: FastifyCustomRequest) {
     const chats = await this.chatService.getAllChatsWithLastMessage(req.user.sub);
     return plainToChat(chats);
+  }
+
+  @Get('chat')
+  @ApiOperation({
+    summary: 'Get chat info',
+    description: 'Get chat info by chat id (primary) or user id',
+  })
+  async getChatByUserId(@Query() dto: GetChatDto, @Req() req: FastifyCustomRequest) {
+    if (!dto.userId && !dto.chatId) return;
+
+    const reqUserId = req.user.sub;
+
+    if (dto.chatId) return this.chatService.getChatInfo(dto.chatId);
+    if (dto.userId) return this.chatService.findGeneralChat(dto.userId, reqUserId);
   }
 
   @Post('msg')
