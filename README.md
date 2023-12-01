@@ -19,7 +19,7 @@ npm run dockerize
 
 Run build
 ```shell
-npm run start:dockerize
+npm run start:container
 ```
 
 ## Installation
