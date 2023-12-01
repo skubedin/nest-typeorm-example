@@ -46,12 +46,9 @@ export class ChatService {
         archivedAt: true,
         createdAt: true,
         updatedAt: true,
-        userChats: {
-          id: true,
-          user: { id: true },
-        },
+        userChats: false,
       },
-      relations: { userChats: { user: true } },
+      relations: { userChats: true },
       where: {
         id: chatId,
         userChats: {
