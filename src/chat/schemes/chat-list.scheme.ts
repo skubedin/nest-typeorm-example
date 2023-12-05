@@ -10,16 +10,16 @@ export class RecipientScheme {
   id: string;
 
   @Expose()
-  @ApiProperty({ type: String, example: '' })
-  firstName: string;
+  @ApiProperty({ type: String, example: '', required: false })
+  firstName?: string;
 
   @Expose()
-  @ApiProperty({ type: String, example: '' })
-  lastName: string;
+  @ApiProperty({ type: String, example: '', required: false })
+  lastName?: string;
 
   @Expose()
-  @ApiProperty({ type: String, example: '' })
-  email: string;
+  @ApiProperty({ type: String, example: '', required: false })
+  email?: string;
 }
 
 export class ChatListScheme {
@@ -41,7 +41,7 @@ export class ChatListScheme {
   lastMessage: MessageScheme;
 
   @Expose()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @Type(() => RecipientScheme)
   recipient: RecipientScheme | null;
 }
