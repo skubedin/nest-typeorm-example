@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 import { Roles } from '../common/roles/constants';
+import { User } from '../users/models/user.entity';
+import { UserChat } from './models/user-chat.entity';
 import { ChatRepository } from './repositories/chat.repository';
 import { UserChatRepository } from './repositories/user-chat.repository';
 
@@ -39,25 +41,27 @@ export class ChatService {
   }
 
   async getChatInfo(chatId: string, userId?: string) {
-    return this.chatRepository.findOne({
-      select: {
-        id: true,
-        name: true,
-        archivedAt: true,
-        createdAt: true,
-        updatedAt: true,
-        userChats: {},
-      },
-      relations: { userChats: true },
-      where: {
-        id: chatId,
-        userChats: {
-          user: {
-            id: userId,
-          },
-        },
-      },
-    });
+    const builder = this.chatRepository
+      .createQueryBuilder('c')
+      .select([
+        'c.id AS id',
+        'c.name AS name',
+        'c.archived_at AS "archivedAt"',
+        'c.created_at AS "createdAt"',
+        'c.updated_at AS "updatedAt"',
+        'jsonb_agg(DISTINCT jsonb_build_object(' +
+          "'id', u.id, " +
+          "'firstName', u.first_name, " +
+          "'lastName', u.last_name, " +
+          "'email', u.email" +
+          ')) AS users',
+      ])
+      .leftJoin(UserChat, 'uc', 'uc.chat_id = c.id')
+      .leftJoin(User, 'u', 'uc.user_id = u.id')
+      .where('c.id = :chatId' + (userId ? 'AND uc.user_id = :userId' : ''), { chatId, userId })
+      .groupBy('c.id');
+
+    return builder.getRawOne();
   }
 
   async hasAccess(user: { roleName: string; id: string }, chatId: string) {

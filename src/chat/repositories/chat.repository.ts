@@ -26,8 +26,8 @@ export class ChatRepository extends BaseRepository {
                 " 'createdAt', m.created_at," +
                 " 'updatedAt', m.updated_at," +
                 " 'author', jsonb_build_object(" +
-                "'id', u.id," +
-                "'firstName', u.first_name," +
+                "'id', u.id, " +
+                "'firstName', u.first_name, " +
                 "'lastName', u.last_name" +
                 ')' +
                 ')',
@@ -47,9 +47,10 @@ export class ChatRepository extends BaseRepository {
                 'when u2.id IS NULL ' +
                 'then NULL ' +
                 'else jsonb_build_object(' +
-                "'id', u2.id," +
-                " 'firstName', u2.first_name," +
-                " 'lastName', u2.last_name" +
+                "'id', u2.id, " +
+                " 'firstName', u2.first_name, " +
+                " 'lastName', u2.last_name, " +
+                " 'email', u2.email" +
                 ') ' +
                 'end as recipient',
             )
@@ -85,5 +86,10 @@ export class ChatRepository extends BaseRepository {
   create(entity: QueryDeepPartialEntity<Chat>) {
     const repo = this.getRepository(Chat);
     return repo.insert(entity);
+  }
+
+  createQueryBuilder(alias: string) {
+    const repo = this.getRepository(Chat);
+    return repo.createQueryBuilder(alias);
   }
 }
