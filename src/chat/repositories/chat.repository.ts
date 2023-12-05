@@ -1,12 +1,12 @@
 import { Injectable, Scope } from '@nestjs/common';
 import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 import { BaseRepository } from '../../common/repositories/base.repository';
 import { User } from '../../users/models/user.entity';
 import { Chat } from '../models/chat.entity';
 import { Message } from '../models/message.entity';
 import { UserChat } from '../models/user-chat.entity';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 @Injectable({ scope: Scope.REQUEST })
 export class ChatRepository extends BaseRepository {
@@ -32,12 +32,35 @@ export class ChatRepository extends BaseRepository {
                 ')' +
                 ')',
             )
-            .addFrom(Message, 'm')
+            .from(Message, 'm')
             .leftJoin(User, 'u', 'u.id = m.author_id')
             .where('chat_id = chat.id')
             .orderBy({ 'm.created_at': 'DESC' })
             .limit(1),
         'lastMessage',
+      )
+      .addSelect(
+        (sq) =>
+          sq
+            .select(
+              'case ' +
+                'when u2.id IS NULL ' +
+                'then NULL ' +
+                'else jsonb_build_object(' +
+                "'id', u2.id," +
+                " 'firstName', u2.first_name," +
+                " 'lastName', u2.last_name" +
+                ') ' +
+                'end as recipient',
+            )
+            .from(UserChat, 'uc2')
+            .leftJoin(
+              User,
+              'u2',
+              'uc2.chat_id = chat.id AND uc2.user_id <> :userId AND uc2.user_id = u2.id',
+            )
+            .where('uc2.user_id <> :userId'),
+        'recipient',
       )
       .addSelect(
         (sq) =>

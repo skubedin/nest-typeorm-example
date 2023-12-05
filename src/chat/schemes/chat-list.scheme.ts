@@ -4,6 +4,24 @@ import { Expose, plainToInstance, Type } from 'class-transformer';
 import { Chat } from '../models/chat.entity';
 import { MessageScheme } from './message.scheme';
 
+export class RecipientScheme {
+  @Expose()
+  @ApiProperty({ type: String, example: '' })
+  id: string;
+
+  @Expose()
+  @ApiProperty({ type: String, example: '' })
+  firstName: string;
+
+  @Expose()
+  @ApiProperty({ type: String, example: '' })
+  lastName: string;
+
+  @Expose()
+  @ApiProperty({ type: String, example: '' })
+  email: string;
+}
+
 export class ChatListScheme {
   @Expose()
   @ApiProperty({ type: String, example: '' })
@@ -21,6 +39,11 @@ export class ChatListScheme {
   @ApiProperty()
   @Type(() => MessageScheme)
   lastMessage: MessageScheme;
+
+  @Expose()
+  @ApiProperty()
+  @Type(() => RecipientScheme)
+  recipient: RecipientScheme | null;
 }
 
 function plainToChat<T>(chats: T[]): ChatListScheme[];
