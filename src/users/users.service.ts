@@ -1,5 +1,13 @@
 import { ForbiddenException, Injectable, UnprocessableEntityException } from '@nestjs/common';
-import { FindManyOptions, FindOneOptions, FindOptionsWhere, ILike, IsNull, Like, Not } from 'typeorm';
+import {
+  FindManyOptions,
+  FindOneOptions,
+  FindOptionsWhere,
+  ILike,
+  IsNull,
+  Like,
+  Not,
+} from 'typeorm';
 
 import { Roles } from '../common/roles/constants';
 import { RoleRepository } from '../common/roles/role.repository';
@@ -51,9 +59,10 @@ export class UsersService {
     const perPage = query?.perPage ?? 25;
     const skip = perPage * page - perPage;
     const search = query?.search ? `%${query.search}%` : '';
+    const where = [];
 
-    return this.userRepository.find({
-      where: [
+    if (search) {
+      where.push(
         {
           firstName: ILike(search),
         },
@@ -63,7 +72,11 @@ export class UsersService {
         {
           email: ILike(search),
         },
-      ],
+      );
+    }
+
+    return this.userRepository.find({
+      where,
       skip,
       take: perPage,
     });

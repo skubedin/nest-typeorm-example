@@ -20,12 +20,12 @@ export class ChatRepository extends BaseRepository {
           sq
             .select(
               'jsonb_build_object(' +
-                "'id', m.id," +
-                " 'text', m.text," +
-                " 'isUnread', m.is_unread," +
-                " 'createdAt', m.created_at," +
-                " 'updatedAt', m.updated_at," +
-                " 'author', jsonb_build_object(" +
+                "'id', m.id, " +
+                "'text', m.text, " +
+                "'isUnread', m.is_unread, " +
+                "'createdAt', m.created_at, " +
+                "'updatedAt', m.updated_at, " +
+                "'author', jsonb_build_object(" +
                 "'id', u.id, " +
                 "'firstName', u.first_name, " +
                 "'lastName', u.last_name" +
@@ -48,9 +48,9 @@ export class ChatRepository extends BaseRepository {
                 'then NULL ' +
                 'else jsonb_build_object(' +
                 "'id', u2.id, " +
-                " 'firstName', u2.first_name, " +
-                " 'lastName', u2.last_name, " +
-                " 'email', u2.email" +
+                "'firstName', u2.first_name, " +
+                "'lastName', u2.last_name, " +
+                "'email', u2.email" +
                 ') ' +
                 'end as recipient',
             )
@@ -60,7 +60,7 @@ export class ChatRepository extends BaseRepository {
               'u2',
               'uc2.chat_id = chat.id AND uc2.user_id <> :userId AND uc2.user_id = u2.id',
             )
-            .where('uc2.user_id <> :userId'),
+            .where('uc2.chat_id = chat.id AND uc2.user_id <> :userId'),
         'recipient',
       )
       .addSelect(
