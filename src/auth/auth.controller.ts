@@ -1,5 +1,5 @@
 import { CookieSerializeOptions } from '@fastify/cookie';
-import { Body, Controller, ForbiddenException, Get, Post, Req, Res } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { FastifyReply, FastifyRequest } from 'fastify';
 
@@ -12,9 +12,10 @@ const JWT_REFRESH_COOKIE_NAME = 'refresh';
 const JWT_REFRESH_COOKIE_OPTIONS = <CookieSerializeOptions>{
   httpOnly: true,
   maxAge: 60 * 60 * 24 * 7,
+  // domain: 'localhost',
   path: '/auth/refresh',
   // sameSite: 'none',
-  secure: false,
+  // secure: false,
 };
 
 @ApiTags('Auth')
@@ -42,29 +43,22 @@ export class AuthController {
   @Get('refresh')
   @IsPublic()
   async refresh(@Req() req: FastifyRequest, @Res({ passthrough: true }) res) {
-    try {
-      const access = req.headers['authorization'];
-      if (!access) throw 'Invalid token';
+    const refresh = req.cookies[JWT_REFRESH_COOKIE_NAME];
+    if (!refresh) throw new BadRequestException('Invalid token');
 
-      const refresh = req.cookies[JWT_REFRESH_COOKIE_NAME];
-      if (!refresh) throw 'Invalid token';
+    const payload = await this.authService.verifyToken(refresh);
 
-      const payload = await this.authService.verifyToken(refresh);
+    const { iat, exp, ...clearPayload } = payload;
 
-      const { iat, exp, ...clearPayload } = payload;
+    const { accessToken, refreshToken } = this.authService.generateTokens(clearPayload);
 
-      const { accessToken, refreshToken } = this.authService.generateTokens(clearPayload);
+    res.setCookie(JWT_REFRESH_COOKIE_NAME, refreshToken, JWT_REFRESH_COOKIE_OPTIONS);
+    await this.authService.saveRefreshToken(
+      refreshToken,
+      JWT_REFRESH_COOKIE_OPTIONS.maxAge,
+      clearPayload.sub,
+    );
 
-      res.setCookie(JWT_REFRESH_COOKIE_NAME, refreshToken, JWT_REFRESH_COOKIE_OPTIONS);
-      await this.authService.saveRefreshToken(
-        refreshToken,
-        JWT_REFRESH_COOKIE_OPTIONS.maxAge,
-        clearPayload.sub,
-      );
-
-      return { accessToken };
-    } catch (e) {
-      throw new ForbiddenException();
-    }
+    return { accessToken };
   }
 }

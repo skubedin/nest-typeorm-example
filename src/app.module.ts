@@ -16,6 +16,7 @@ import { ProfileModule } from './profile/profile.module';
 import { ProjectModule } from './project/project.module';
 import { TypeormConfigService } from './shared/typeorm/typeorm.service';
 import { UsersModule } from './users/users.module';
+import { FileModule } from './password/file/file.module';
 
 const envPath = getEnvPath(`${__dirname}/common/envs`);
 
@@ -36,6 +37,7 @@ const envPath = getEnvPath(`${__dirname}/common/envs`);
     AuthModule,
     CaslModule,
     ChatModule,
+    FileModule,
     ProjectModule,
     ProfileModule,
   ],
