@@ -20,4 +20,9 @@ export class RefreshTokenRepository extends BaseRepository {
       expiresIn: new Date(Date.now() + expiresIn * 1000),
     });
   }
+
+  delete(token: string) {
+    const repo = this.getRepository(RefreshToken);
+    return repo.delete({ token });
+  }
 }

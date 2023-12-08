@@ -70,4 +70,8 @@ export class AuthService {
   private createJWTToken(payload: Buffer | object, expiresIn?: JwtSignOptions['expiresIn']) {
     return this.jwtService.sign(payload, expiresIn ? { expiresIn } : undefined);
   }
+
+  async deleteToken(token: string) {
+    await this.refreshTokenRepository.delete(token);
+  }
 }

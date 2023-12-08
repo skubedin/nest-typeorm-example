@@ -4,7 +4,6 @@ import * as fsPromises from 'node:fs/promises';
 import { Controller, Get, Post, Req, StreamableFile } from '@nestjs/common';
 import { ApiBody, ApiConsumes, ApiProduces, ApiTags } from '@nestjs/swagger';
 
-import { IsPublic } from '../auth/guards/is-public.decorator';
 import { FastifyCustomRequest } from '../common/types/request';
 import { ProfileService } from './profile.service';
 
@@ -20,6 +19,7 @@ export class ProfileController {
 
   @Post('avatar')
   @ApiConsumes('multipart/form-data')
+  // @ApiImplicitFile({ name: 'file', required: true, description: 'Avatar' })
   @ApiBody({
     schema: {
       type: 'object',
@@ -34,8 +34,8 @@ export class ProfileController {
     },
   })
   @ApiProduces()
-  @IsPublic()
-  async uploadAvatar(@Req() req) {
+  async uploadAvatar(@Req() req: FastifyCustomRequest) {
+    // const userId = req.user.sub;
     const file = await req.file();
     const fileName = file.filename;
     try {

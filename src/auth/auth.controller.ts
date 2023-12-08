@@ -3,6 +3,7 @@ import { BadRequestException, Body, Controller, Get, Post, Req, Res } from '@nes
 import { ApiTags } from '@nestjs/swagger';
 import { FastifyReply, FastifyRequest } from 'fastify';
 
+import { FastifyCustomRequest } from '../common/types/request';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
@@ -12,10 +13,10 @@ const JWT_REFRESH_COOKIE_NAME = 'refresh';
 const JWT_REFRESH_COOKIE_OPTIONS = <CookieSerializeOptions>{
   httpOnly: true,
   maxAge: 60 * 60 * 24 * 7,
-  // domain: 'localhost',
+  domain: 'localhost',
   path: '/auth/refresh',
   // sameSite: 'none',
-  // secure: false,
+  secure: false,
 };
 
 @ApiTags('Auth')
@@ -40,10 +41,20 @@ export class AuthController {
     await this.authService.signUp(dto);
   }
 
+  @Get('logout')
+  @IsPublic()
+  async logout(@Req() req: FastifyCustomRequest, @Res({ passthrough: true }) res: FastifyReply) {
+    const refresh = req.cookies[JWT_REFRESH_COOKIE_NAME];
+
+    await this.authService.deleteToken(refresh);
+    res.setCookie(JWT_REFRESH_COOKIE_NAME, refresh, { ...JWT_REFRESH_COOKIE_OPTIONS, maxAge: 0 });
+  }
+
   @Get('refresh')
   @IsPublic()
   async refresh(@Req() req: FastifyRequest, @Res({ passthrough: true }) res) {
     const refresh = req.cookies[JWT_REFRESH_COOKIE_NAME];
+    console.log('--->>> refresh', refresh);
     if (!refresh) throw new BadRequestException('Invalid token');
 
     const payload = await this.authService.verifyToken(refresh);
