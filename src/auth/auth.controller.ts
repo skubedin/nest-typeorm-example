@@ -64,6 +64,7 @@ export class AuthController {
     const { accessToken, refreshToken } = this.authService.generateTokens(clearPayload);
 
     res.setCookie(JWT_REFRESH_COOKIE_NAME, refreshToken, JWT_REFRESH_COOKIE_OPTIONS);
+    await this.authService.deleteToken(refresh);
     await this.authService.saveRefreshToken(
       refreshToken,
       JWT_REFRESH_COOKIE_OPTIONS.maxAge,
