@@ -5,12 +5,14 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 import { UserChat } from '../../chat/models/user-chat.entity';
 import { RoleEntity } from '../../common/roles/entities/role.entity';
+import { FileModel } from '../../file/models/file.entity';
 import { Password } from '../../password/models/password.entity';
 import { Project } from '../../project/models/project.entity';
 
@@ -48,12 +50,16 @@ export class User {
   })
   public updatedAt!: Date;
 
+  @OneToOne(() => FileModel, { nullable: true })
+  @JoinColumn({ name: 'avatar_id' })
+  public avatar?: FileModel;
+
   @OneToMany(() => Project, (project) => project.user)
   public projects: Project[];
 
   @ManyToOne(() => RoleEntity)
-  @JoinColumn({ foreignKeyConstraintName: 'id', name: 'role_id' })
-  role: RoleEntity;
+  @JoinColumn({ name: 'role_id' })
+  public role: RoleEntity;
 
   @OneToMany(() => UserChat, (uc) => uc.user)
   public userChats: UserChat[];

@@ -11,7 +11,7 @@ export type UserTokenPayload = {
   exp?: number;
 };
 
-export type UserFromAuthGuard = Pick<User, 'id' | 'email' | 'firstName' | 'lastName'> & {
+export type UserFromAuthGuard = Pick<User, 'id' | 'email' | 'firstName' | 'lastName' | 'avatar'> & {
   role: Pick<User['role'], 'id' | 'name'>;
 };
 export type RequestUser = UserTokenPayload & UserFromAuthGuard;

@@ -100,14 +100,10 @@ export class MessageService {
       .select()
       .leftJoin(Chat, 'c', 'c.id = m.chat_id')
       .leftJoin(UserChat, 'uc', 'uc.chat_id = m.chat_id')
-      .where(
-        'uc.user_id = :userId ' +
-          'AND (m.author_id <> :userId OR (m.author_id = :userId AND c.is_self = TRUE))',
-        {
-          msgId,
-          userId,
-        },
-      )
+      .where('uc.user_id = :userId ' + 'AND (m.author_id = :userId AND m.id = :msgId)', {
+        msgId,
+        userId,
+      })
       .getExists();
   }
 }

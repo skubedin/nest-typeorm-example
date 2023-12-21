@@ -54,7 +54,6 @@ export class AuthController {
   @IsPublic()
   async refresh(@Req() req: FastifyRequest, @Res({ passthrough: true }) res) {
     const refresh = req.cookies[JWT_REFRESH_COOKIE_NAME];
-    console.log('--->>> refresh', refresh);
     if (!refresh) throw new BadRequestException('Invalid token');
 
     const payload = await this.authService.verifyToken(refresh);
@@ -64,7 +63,9 @@ export class AuthController {
     const { accessToken, refreshToken } = this.authService.generateTokens(clearPayload);
 
     res.setCookie(JWT_REFRESH_COOKIE_NAME, refreshToken, JWT_REFRESH_COOKIE_OPTIONS);
+
     await this.authService.deleteToken(refresh);
+
     await this.authService.saveRefreshToken(
       refreshToken,
       JWT_REFRESH_COOKIE_OPTIONS.maxAge,

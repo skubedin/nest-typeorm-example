@@ -50,7 +50,11 @@ async function bootstrap() {
 
   await app.register(helmet);
   await app.register(fastifyCookie, { secret: config.get('COOKIE_SECRET') });
-  await app.register(fastifyMultipart);
+  await app.register(fastifyMultipart, {
+    limits: {
+      fileSize: 10000000, // 10MB
+    },
+  });
 
   const author = await errorLogPromiseHelper(parseAuthorHelper('AUTHOR'));
 
