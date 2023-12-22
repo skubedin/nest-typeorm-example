@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsStrongPassword, Length, MaxLength } from 'class-validator';
 
-import { IsEmailUnique } from '../../common/validation/IsEmailUnique';
 import { AUTH_MESSAGES } from '../../common/error-messages';
+import { IsEmailUnique } from '../../common/validation/IsEmailUnique';
 
 export class SignInDto {
   @ApiProperty({ example: 'asd@asd.asd' })

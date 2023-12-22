@@ -8,7 +8,8 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
-  Put, Query,
+  Put,
+  Query,
   UseInterceptors,
   Version,
 } from '@nestjs/common';
@@ -19,13 +20,13 @@ import { IsPublic } from '../auth/guards/is-public.decorator';
 import { API_VERSION_HEADER } from '../common/constants/headers';
 import { TransactionInterceptor } from '../common/interceptors/transaction.interceptor';
 import { CreateUserDto } from './dto/create-user.dto';
+import { GetUsersQueryDto } from './dto/get-users-query.dto';
 import { SetPasswordDto } from './dto/set-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
-import { plainToUser, UserScheme } from './schemes/user.scheme';
 import { User } from './models/user.entity';
+import { plainToUser, UserScheme } from './schemes/user.scheme';
 import { UsersService } from './users.service';
-import { GetUsersQueryDto } from './dto/get-users-query.dto';
 
 @ApiTags('User')
 @Controller('users')

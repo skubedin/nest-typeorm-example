@@ -1,10 +1,9 @@
 import { Injectable, Scope } from '@nestjs/common';
-import { FindManyOptions, FindOptionsWhere } from 'typeorm';
+import { FindManyOptions, FindOneOptions, FindOptionsWhere } from 'typeorm';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 import { BaseRepository } from '../../common/repositories/base.repository';
 import { Message } from '../models/message.entity';
-import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 @Injectable({ scope: Scope.REQUEST })
 export class MessageRepository extends BaseRepository {
