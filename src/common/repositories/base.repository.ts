@@ -11,7 +11,7 @@ export class BaseRepository {
   @Inject(DataSource)
   protected readonly dataSource: DataSource;
 
-  getRepository<T>(entityCls: new () => T): Repository<T> {
+  protected getRepository<T>(entityCls: new () => T): Repository<T> {
     const entityManager = this.req[ENTITY_MANAGER_KEY] ?? this.dataSource.manager;
     return entityManager.getRepository(entityCls);
   }

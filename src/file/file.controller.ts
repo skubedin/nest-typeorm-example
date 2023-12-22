@@ -6,26 +6,33 @@ import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { ApiImplicitQuery } from '@nestjs/swagger/dist/decorators/api-implicit-query.decorator';
 
 import { IsPublic } from '../auth/guards/is-public.decorator';
+import { FileService } from './file.service';
 
 @ApiTags('Files')
 @Controller('files')
 export class FileController {
+  constructor(private readonly fileService: FileService) {}
+
   @ApiOperation({ summary: 'Get file' })
-  @ApiImplicitQuery({
-    type: 'string',
-    name: 'fileName',
-  })
-  @Get('')
+  @Get(':fileId')
   @IsPublic()
-  async getFileStream(@Query('fileName') fileName: string) {
-    const filePath = path.join('./uploads' + fileName);
+  async getFileStream(@Param('fileId') fileId: string) {
+    const fileNotFoundException = new NotFoundException('File not found');
+
+    const file = await this.fileService.findOneById(fileId, ['path']);
+    if (!file) throw fileNotFoundException;
+
     try {
-      await fs.promises.access(filePath);
-    } catch (error) {
-      new NotFoundException();
+      const stats = await fs.promises.stat(file.path);
+      if (stats.isFile()) {
+        const stream = fs.createReadStream(file.path);
+        return new StreamableFile(stream);
+      }
+    } catch (e) {
+      throw fileNotFoundException;
     }
 
-    const stream = fs.createReadStream(filePath);
-    return new StreamableFile(stream);
+    // if !stats.isFile()
+    throw fileNotFoundException;
   }
 }
