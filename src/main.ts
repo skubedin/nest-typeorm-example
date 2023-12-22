@@ -2,6 +2,7 @@ import 'winston-daily-rotate-file';
 
 import fastifyCookie from '@fastify/cookie';
 import helmet from '@fastify/helmet';
+import fastifyMultipart from '@fastify/multipart';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
@@ -45,8 +46,15 @@ async function bootstrap() {
     })
     .setGlobalPrefix(apiPrefix);
 
+  app.enableCors();
+
   await app.register(helmet);
   await app.register(fastifyCookie, { secret: config.get('COOKIE_SECRET') });
+  await app.register(fastifyMultipart, {
+    limits: {
+      fileSize: 10000000, // 10MB
+    },
+  });
 
   const author = await errorLogPromiseHelper(parseAuthorHelper('AUTHOR'));
 
@@ -82,4 +90,4 @@ async function bootstrap() {
   });
 }
 
-bootstrap();
+(() => bootstrap())();

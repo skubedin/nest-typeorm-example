@@ -2,7 +2,7 @@ import { Injectable, Scope } from '@nestjs/common';
 import { FindManyOptions } from 'typeorm/find-options/FindManyOptions';
 
 import { BaseRepository } from '../common/repositories/base.repository';
-import { RefreshToken } from './entities/refresh-token.entity';
+import { RefreshToken } from './models/refresh-token.entity';
 
 @Injectable({ scope: Scope.REQUEST })
 export class RefreshTokenRepository extends BaseRepository {
@@ -19,5 +19,10 @@ export class RefreshTokenRepository extends BaseRepository {
       user: { id: userId },
       expiresIn: new Date(Date.now() + expiresIn * 1000),
     });
+  }
+
+  delete(token: string) {
+    const repo = this.getRepository(RefreshToken);
+    return repo.delete({ token });
   }
 }

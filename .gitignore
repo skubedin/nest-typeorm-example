@@ -36,3 +36,5 @@ lerna-debug.log*
 
 /src/common/envs/*.env
 !/src/common/envs/.example.env
+
+uploads

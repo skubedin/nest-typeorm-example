@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { EntityManager } from 'typeorm';
 
-import { User } from '../../../users/entities/user.entity';
+import { User } from '../../../users/models/user.entity';
 import { RolesRecord } from '../types';
 import { users as usersData } from './data';
 

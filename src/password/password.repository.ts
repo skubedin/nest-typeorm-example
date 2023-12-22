@@ -4,7 +4,7 @@ import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 import { BaseRepository } from '../common/repositories/base.repository';
-import { Password } from './entities/password.entity';
+import { Password } from './models/password.entity';
 
 @Injectable({ scope: Scope.REQUEST })
 export class PasswordRepository extends BaseRepository {

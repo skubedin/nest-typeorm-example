@@ -1,8 +1,9 @@
 import { CookieSerializeOptions } from '@fastify/cookie';
-import { Body, Controller, ForbiddenException, Get, Post, Req, Res } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { FastifyReply, FastifyRequest } from 'fastify';
 
+import { FastifyCustomRequest } from '../common/types/request';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
@@ -12,8 +13,9 @@ const JWT_REFRESH_COOKIE_NAME = 'refresh';
 const JWT_REFRESH_COOKIE_OPTIONS = <CookieSerializeOptions>{
   httpOnly: true,
   maxAge: 60 * 60 * 24 * 7,
-  path: 'auth/refresh',
-  sameSite: 'none',
+  domain: 'localhost',
+  path: '/auth/refresh',
+  // sameSite: 'none',
   secure: false,
 };
 
@@ -39,34 +41,37 @@ export class AuthController {
     await this.authService.signUp(dto);
   }
 
+  @Get('logout')
+  @IsPublic()
+  async logout(@Req() req: FastifyCustomRequest, @Res({ passthrough: true }) res: FastifyReply) {
+    const refresh = req.cookies[JWT_REFRESH_COOKIE_NAME];
+
+    await this.authService.deleteToken(refresh);
+    res.setCookie(JWT_REFRESH_COOKIE_NAME, refresh, { ...JWT_REFRESH_COOKIE_OPTIONS, maxAge: 0 });
+  }
+
   @Get('refresh')
   @IsPublic()
   async refresh(@Req() req: FastifyRequest, @Res({ passthrough: true }) res) {
-    try {
-      const access = req.headers['authorization'];
-      if (!access) throw 'Invalid token';
+    const refresh = req.cookies[JWT_REFRESH_COOKIE_NAME];
+    if (!refresh) throw new BadRequestException('Invalid token');
 
-      const payload = await this.authService.verifyToken(access);
+    const payload = await this.authService.verifyToken(refresh);
 
-      const refresh = req.cookies[JWT_REFRESH_COOKIE_NAME];
-      if (!refresh) throw 'Invalid token';
+    const { iat, exp, ...clearPayload } = payload;
 
-      await this.authService.verifyToken(refresh);
+    const { accessToken, refreshToken } = this.authService.generateTokens(clearPayload);
 
-      const { iat, exp, ...clearPayload } = payload;
+    res.setCookie(JWT_REFRESH_COOKIE_NAME, refreshToken, JWT_REFRESH_COOKIE_OPTIONS);
 
-      const { accessToken, refreshToken } = this.authService.generateTokens(clearPayload);
+    await this.authService.deleteToken(refresh);
 
-      res.setCookie(JWT_REFRESH_COOKIE_NAME, refreshToken, JWT_REFRESH_COOKIE_OPTIONS);
-      await this.authService.saveRefreshToken(
-        refreshToken,
-        JWT_REFRESH_COOKIE_OPTIONS.maxAge,
-        clearPayload.sub,
-      );
+    await this.authService.saveRefreshToken(
+      refreshToken,
+      JWT_REFRESH_COOKIE_OPTIONS.maxAge,
+      clearPayload.sub,
+    );
 
-      return { accessToken };
-    } catch (e) {
-      throw new ForbiddenException();
-    }
+    return { accessToken };
   }
 }

@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsString, IsStrongPassword, Length } from 'class-validator';
+
 import { IsEmailUnique } from '../../common/validation/IsEmailUnique';
 
 export class CreateUserDto {

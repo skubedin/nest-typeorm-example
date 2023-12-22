@@ -10,6 +10,18 @@
 cp src/common/envs/.example.env src/common/envs/.development.env
 ```
 
+## Installation docker
+
+Create build
+```shell
+npm run dockerize
+```
+
+Run build
+```shell
+npm run start:container
+```
+
 ## Installation
 
 ```bash

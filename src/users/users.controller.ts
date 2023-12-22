@@ -8,7 +8,7 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
-  Put,
+  Put, Query,
   UseInterceptors,
   Version,
 } from '@nestjs/common';
@@ -22,9 +22,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { SetPasswordDto } from './dto/set-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
-import { plainToUser, UserEntity } from './dto/User.entity';
-import { User } from './entities/user.entity';
+import { plainToUser, UserScheme } from './schemes/user.scheme';
+import { User } from './models/user.entity';
 import { UsersService } from './users.service';
+import { GetUsersQueryDto } from './dto/get-users-query.dto';
 
 @ApiTags('User')
 @Controller('users')
@@ -54,13 +55,13 @@ export class UsersController {
   })
   @Get()
   @Version('2')
-  async findAllV2(): Promise<UserEntity[]> {
-    const users = await this.usersService.findAllV2();
+  async findAllV2(@Query() query: GetUsersQueryDto): Promise<UserScheme[]> {
+    const users = await this.usersService.findAllV2(query);
     return plainToUser(users);
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseUUIDPipe) id: string): Promise<UserEntity> {
+  async findOne(@Param('id', ParseUUIDPipe) id: string): Promise<UserScheme> {
     const user = await this.usersService.findOne({
       where: {
         id,

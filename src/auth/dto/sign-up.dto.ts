@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsString, IsStrongPassword, Length } from 'class-validator';
 
+import { IsEmailUnique } from '../../common/validation/IsEmailUnique';
 import { Match } from '../../common/validation/Match';
 
 export class SignUpDto {
@@ -15,6 +16,7 @@ export class SignUpDto {
 
   @ApiProperty()
   @IsEmail()
+  @IsEmailUnique()
   public email: string;
 
   @ApiProperty()

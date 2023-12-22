@@ -8,9 +8,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CaslModule } from './casl/casl.module';
+import { ChatModule } from './chat/chat.module';
 import { getEnvPath } from './common/helpers/env.helper';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 import { RequestLoggerMiddleware } from './common/middlewares/request-logger.middleware';
+import { FileModule } from './file/file.module';
+import { ProfileModule } from './profile/profile.module';
 import { ProjectModule } from './project/project.module';
 import { TypeormConfigService } from './shared/typeorm/typeorm.service';
 import { UsersModule } from './users/users.module';
@@ -33,7 +36,10 @@ const envPath = getEnvPath(`${__dirname}/common/envs`);
     UsersModule,
     AuthModule,
     CaslModule,
+    ChatModule,
+    FileModule,
     ProjectModule,
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [

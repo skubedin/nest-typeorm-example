@@ -28,6 +28,7 @@
     "@casl/ability": "^6.5.0",
     "@fastify/cookie": "^9.2.0",
     "@fastify/helmet": "^11.0.0",
+    "@fastify/multipart": "^8.0.0",
     "@fastify/static": "^6.10.2",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.0.0",
@@ -46,6 +47,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.17",
+    "ulid": "^2.3.0",
     "winston": "^3.10.0",
     "winston-daily-rotate-file": "^4.7.1"
   },

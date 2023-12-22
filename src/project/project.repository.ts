@@ -3,7 +3,7 @@ import { DataSource } from 'typeorm';
 import { FindManyOptions } from 'typeorm/find-options/FindManyOptions';
 
 import { BaseRepository } from '../common/repositories/base.repository';
-import { Project } from './entities/project.entity';
+import { Project } from './models/project.entity';
 
 @Injectable({ scope: Scope.REQUEST })
 export class ProjectRepository extends BaseRepository {
