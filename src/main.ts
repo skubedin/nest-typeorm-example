@@ -22,7 +22,7 @@ import { ErrorInterceptor } from './common/interceptors/error.interceptor';
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
     cors: {
-      origin: 'http://localhost,http://localhost:3000,http://localhost:4567',
+      origin: 'http://localhost,http://localhost:3000,http://localhost:4567,http://localhost:5172',
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
       preflightContinue: false,
       optionsSuccessStatus: 204,
