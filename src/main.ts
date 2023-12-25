@@ -21,13 +21,13 @@ import { ErrorInterceptor } from './common/interceptors/error.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
-    // cors: {
-    //   origin: '*',
-    //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    //   preflightContinue: false,
-    //   optionsSuccessStatus: 204,
-    //   credentials: true,
-    // },
+    cors: {
+      origin: 'http://localhost,http://localhost:3000,http://localhost:4567',
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      preflightContinue: false,
+      optionsSuccessStatus: 204,
+      credentials: true,
+    },
     logger: WinstonLogger,
   });
   const config: ConfigService = app.get(ConfigService);
@@ -46,7 +46,7 @@ async function bootstrap() {
     })
     .setGlobalPrefix(apiPrefix);
 
-  app.enableCors();
+  // app.enableCors();
 
   await app.register(helmet);
   await app.register(fastifyCookie, { secret: config.get('COOKIE_SECRET') });
