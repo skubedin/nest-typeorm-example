@@ -51,7 +51,7 @@ async function bootstrap() {
 
   await app.register(helmet, {
     contentSecurityPolicy: false,
-    crossOriginResourcePolicy: { policy: 'same-origin' },
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
   });
 
   await app.register(fastifyCookie, { secret: config.get('COOKIE_SECRET') });
