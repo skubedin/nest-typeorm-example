@@ -49,7 +49,7 @@ async function bootstrap() {
     })
     .setGlobalPrefix(apiPrefix);
 
-  await app.register(helmet);
+  await app.register(helmet, { contentSecurityPolicy: false });
   await app.register(fastifyCookie, { secret: config.get('COOKIE_SECRET') });
   await app.register(fastifyMultipart, {
     limits: {
