@@ -3,6 +3,7 @@ import * as fs from 'node:fs';
 import { Controller, Get, NotFoundException, Param, StreamableFile } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+import { IsPublic } from '../auth/guards/is-public.decorator';
 import { FileService } from './file.service';
 
 @ApiTags('Files')
@@ -11,6 +12,7 @@ export class FileController {
   constructor(private readonly fileService: FileService) {}
 
   @ApiOperation({ summary: 'Get file' })
+  @IsPublic()
   @Get(':fileId')
   async getFileStream(@Param('fileId') fileId: string) {
     const fileNotFoundException = new NotFoundException('File not found');
