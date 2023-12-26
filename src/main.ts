@@ -50,7 +50,6 @@ async function bootstrap() {
     .setGlobalPrefix(apiPrefix);
 
   await app.register(helmet, {
-    contentSecurityPolicy: false,
     crossOriginResourcePolicy: { policy: 'cross-origin' },
   });
 
