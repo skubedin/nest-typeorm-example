@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 
 import { ChatController } from './chat.controller';
 import { ChatService } from './chat.service';
+import { MessageService } from './message.service';
 import { ChatRepository } from './repositories/chat.repository';
 import { MessageRepository } from './repositories/message.repository';
-import { MessageService } from './message.service';
 import { UserChatRepository } from './repositories/user-chat.repository';
 
 @Module({

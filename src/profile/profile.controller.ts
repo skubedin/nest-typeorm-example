@@ -1,5 +1,5 @@
-import { Controller, Get, Post, Req, UseInterceptors } from '@nestjs/common';
-import { ApiBody, ApiConsumes, ApiProduces, ApiTags } from '@nestjs/swagger';
+import { Controller, Delete, Get, Post, Req, UseInterceptors } from '@nestjs/common';
+import { ApiBody, ApiConsumes, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger';
 
 import { TransactionInterceptor } from '../common/interceptors/transaction.interceptor';
 import { FastifyCustomRequest } from '../common/types/request';
@@ -65,5 +65,28 @@ export class ProfileController {
       path,
       name,
     };
+  }
+
+  @ApiOperation({ summary: 'Delete avatar' })
+  @Delete('avatar')
+  async deleteAvatar(@Req() req: FastifyCustomRequest) {
+    const userId = req.user.sub;
+    const user = await this.userRepository.findOne({
+      select: {
+        id: true,
+        avatar: {
+          id: true,
+          path: true,
+          name: true,
+        },
+      },
+      relations: { avatar: true },
+      where: { id: userId },
+    });
+
+    if (user.avatar) {
+      await this.fileService.removeFileFromDir(user.avatar.path);
+      await this.userRepository.update(userId, { avatar: null });
+    }
   }
 }

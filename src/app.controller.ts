@@ -1,10 +1,7 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { IsPublic } from './auth/guards/is-public.decorator';
-import { Abilities } from './casl/decorators/abilities.decorator';
-import { AbilityGuard } from './casl/guards/ability.guard';
-import { Action, Subject } from './common/roles/constants';
 
 @ApiTags('Health')
 @Controller()

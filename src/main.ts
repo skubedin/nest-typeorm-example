@@ -19,15 +19,18 @@ import { parseAuthorHelper } from './common/helpers/parse-author.helper';
 import { WinstonLogger } from './common/helpers/winston-logger.helper';
 import { ErrorInterceptor } from './common/interceptors/error.interceptor';
 
+const CORS = {
+  origin:
+    'http://localhost,http://localhost:3000,http://localhost:4567,http://localhost:5173'.split(','),
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  credentials: true,
+};
+
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
-    // cors: {
-    //   origin: '*',
-    //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    //   preflightContinue: false,
-    //   optionsSuccessStatus: 204,
-    //   credentials: true,
-    // },
+    cors: CORS,
     logger: WinstonLogger,
   });
   const config: ConfigService = app.get(ConfigService);
@@ -46,13 +49,14 @@ async function bootstrap() {
     })
     .setGlobalPrefix(apiPrefix);
 
-  app.enableCors();
+  await app.register(helmet, {
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+  });
 
-  await app.register(helmet);
   await app.register(fastifyCookie, { secret: config.get('COOKIE_SECRET') });
   await app.register(fastifyMultipart, {
     limits: {
-      fileSize: 10000000, // 10MB
+      fileSize: config.get('MAX_FILE_SIZE'),
     },
   });
 

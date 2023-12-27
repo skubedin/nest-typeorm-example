@@ -1,10 +1,13 @@
 import {
-  Column,
-  CreateDateColumn, DeleteDateColumn,
-  Entity, JoinColumn, ManyToOne,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
 import { User } from '../../users/models/user.entity';
 import { Chat } from './chat.entity';
 

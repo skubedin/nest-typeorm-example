@@ -1,13 +1,5 @@
 import { ForbiddenException, Injectable, UnprocessableEntityException } from '@nestjs/common';
-import {
-  FindManyOptions,
-  FindOneOptions,
-  FindOptionsWhere,
-  ILike,
-  IsNull,
-  Like,
-  Not,
-} from 'typeorm';
+import { FindManyOptions, FindOneOptions, ILike, IsNull } from 'typeorm';
 
 import { Roles } from '../common/roles/constants';
 import { RoleRepository } from '../common/roles/role.repository';
